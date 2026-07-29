@@ -8,8 +8,10 @@ import { TextField, PasswordField } from "../components/ui/Field";
 export function AccountSettings() {
   const { session } = useAuth();
   const currentEmail = session?.user.email ?? "";
+  const currentName = (session?.user.user_metadata?.name as string | undefined) ?? "";
 
   const [currentPassword, setCurrentPassword] = useState("");
+  const [name, setName] = useState(currentName);
   const [newEmail, setNewEmail] = useState(currentEmail);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -27,11 +29,12 @@ export function AccountSettings() {
       return;
     }
 
+    const nameChanged = name.trim() !== currentName;
     const emailChanged = newEmail.trim() !== currentEmail;
     const passwordChanged = newPassword.length > 0;
 
-    if (!emailChanged && !passwordChanged) {
-      setError("Enter a new email and/or a new password to update.");
+    if (!nameChanged && !emailChanged && !passwordChanged) {
+      setError("Change your name, email and/or password below to update.");
       return;
     }
 
@@ -62,6 +65,7 @@ export function AccountSettings() {
     const { error: updateError } = await supabase!.auth.updateUser({
       ...(emailChanged ? { email: newEmail.trim() } : {}),
       ...(passwordChanged ? { password: newPassword } : {}),
+      ...(nameChanged ? { data: { name: name.trim() } } : {}),
     });
 
     setIsSubmitting(false);
@@ -75,36 +79,26 @@ export function AccountSettings() {
     setNewPassword("");
     setConfirmPassword("");
 
-    if (emailChanged && passwordChanged) {
-      setSuccessMessage("Password updated. Check your new email inbox to confirm the email change.");
-    } else if (emailChanged) {
-      setSuccessMessage("Check your new email inbox to confirm the email change — it won't take effect until confirmed.");
+    if (emailChanged) {
+      setSuccessMessage("Check your new email inbox to confirm the email change — it won't take effect until confirmed. Other changes are saved.");
     } else {
-      setSuccessMessage("Password updated.");
+      setSuccessMessage("Profile updated.");
     }
   }
 
   return (
     <div className="max-w-lg">
-      <h1 className="font-display text-2xl font-semibold text-brand-navy">Account Settings</h1>
-      <p className="mt-1 text-brand-gray-500">Change the email or password used to log into this admin app.</p>
+      <h1 className="font-display text-2xl font-semibold text-brand-navy">Profile</h1>
+      <p className="mt-1 text-brand-gray-500">Update your name, login email or password.</p>
 
       <form className="mt-6 space-y-5 rounded-sm border border-brand-gray-200 bg-white p-6" onSubmit={handleSubmit} noValidate>
-        <div className="flex items-start gap-3 rounded-sm bg-brand-gray-50 p-3 text-sm text-brand-gray-600">
-          <KeyRound className="mt-0.5 h-4 w-4 shrink-0 text-brand-gold-dark" aria-hidden="true" />
-          <p>Your current password is required to confirm any change below.</p>
-        </div>
-
-        <PasswordField
-          id="current-password"
-          label="Current password"
-          autoComplete="current-password"
-          value={currentPassword}
-          onChange={(e) => setCurrentPassword(e.target.value)}
-          required
+        <TextField
+          id="profile-name"
+          label="Name"
+          autoComplete="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
-
-        <hr className="border-brand-gray-200" />
 
         <TextField
           id="new-email"
@@ -134,6 +128,22 @@ export function AccountSettings() {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         )}
+
+        <hr className="border-brand-gray-200" />
+
+        <div className="flex items-start gap-3 rounded-sm bg-brand-gray-50 p-3 text-sm text-brand-gray-600">
+          <KeyRound className="mt-0.5 h-4 w-4 shrink-0 text-brand-gold-dark" aria-hidden="true" />
+          <p>Enter your current password to confirm any change above.</p>
+        </div>
+
+        <PasswordField
+          id="current-password"
+          label="Current password"
+          autoComplete="current-password"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+          required
+        />
 
         {error && (
           <p role="alert" className="text-sm text-red-600">

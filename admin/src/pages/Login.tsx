@@ -70,11 +70,6 @@ export function Login() {
             {isSubmitting ? "Signing in…" : "Sign in"}
           </Button>
         </form>
-
-        <p className="mt-6 text-xs text-brand-gray-400">
-          Admin accounts are created in the Supabase dashboard (Authentication → Users) — see
-          ../supabase/README.md.
-        </p>
       </div>
     </div>
   );

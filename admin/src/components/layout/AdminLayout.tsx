@@ -25,7 +25,7 @@ const navItems = [
   { to: "/availability", label: "Availability", icon: CalendarClock },
   { to: "/bookings", label: "Bookings", icon: CalendarCheck },
   { to: "/messages", label: "Messages", icon: Mail },
-  { to: "/account", label: "Account", icon: Settings },
+  { to: "/account", label: "Profile", icon: Settings },
 ];
 
 export function AdminLayout() {
