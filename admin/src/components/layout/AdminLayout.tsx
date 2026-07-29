@@ -11,6 +11,7 @@ import {
   Mail,
   LogOut,
   Scale,
+  Settings,
 } from "lucide-react";
 import { useAuth } from "../../lib/AuthProvider";
 
@@ -24,6 +25,7 @@ const navItems = [
   { to: "/availability", label: "Availability", icon: CalendarClock },
   { to: "/bookings", label: "Bookings", icon: CalendarCheck },
   { to: "/messages", label: "Messages", icon: Mail },
+  { to: "/account", label: "Account", icon: Settings },
 ];
 
 export function AdminLayout() {

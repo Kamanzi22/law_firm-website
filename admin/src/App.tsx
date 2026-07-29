@@ -11,6 +11,7 @@ import { ArticlesManager } from "./pages/ArticlesManager";
 import { AvailabilityEditor } from "./pages/AvailabilityEditor";
 import { BookingsInbox } from "./pages/BookingsInbox";
 import { MessagesInbox } from "./pages/MessagesInbox";
+import { AccountSettings } from "./pages/AccountSettings";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/availability" element={<AvailabilityEditor />} />
             <Route path="/bookings" element={<BookingsInbox />} />
             <Route path="/messages" element={<MessagesInbox />} />
+            <Route path="/account" element={<AccountSettings />} />
           </Route>
         </Route>
       </Routes>
