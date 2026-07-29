@@ -94,7 +94,7 @@ export function Header() {
             role="dialog"
             aria-modal="true"
             aria-label={strings.nav.menu}
-            className="absolute right-0 top-0 flex h-full w-full max-w-xs flex-col gap-8 bg-brand-navy px-6 py-6 shadow-xl"
+            className="absolute left-0 top-0 flex h-full w-full max-w-xs flex-col gap-8 bg-brand-navy px-6 py-6 shadow-xl"
           >
             <div className="flex items-center justify-between">
               <span className="font-display text-lg font-semibold text-brand-cream">{firm.shortName}</span>
