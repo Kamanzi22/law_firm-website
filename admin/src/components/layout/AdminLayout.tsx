@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Building2,
@@ -12,6 +13,8 @@ import {
   LogOut,
   Scale,
   Settings,
+  Menu,
+  X,
 } from "lucide-react";
 import { useAuth } from "../../lib/AuthProvider";
 
@@ -28,8 +31,44 @@ const navItems = [
   { to: "/account", label: "Profile", icon: Settings },
 ];
 
+function NavList({ onNavigate }: { onNavigate?: () => void }) {
+  return (
+    <nav className="flex-1 space-y-1 px-3" aria-label="Admin navigation">
+      {navItems.map((item) => (
+        <NavLink
+          key={item.to}
+          to={item.to}
+          end={item.end}
+          onClick={onNavigate}
+          className={({ isActive }) =>
+            `flex items-center gap-3 rounded-sm px-3 py-2.5 text-sm font-medium transition-colors ${
+              isActive ? "bg-brand-gold text-brand-navy" : "text-brand-gray-200 hover:bg-white/5"
+            }`
+          }
+        >
+          <item.icon className="h-4 w-4" aria-hidden="true" />
+          {item.label}
+        </NavLink>
+      ))}
+    </nav>
+  );
+}
+
 export function AdminLayout() {
   const { signOut } = useAuth();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsDrawerOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = isDrawerOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isDrawerOpen]);
 
   return (
     <div className="flex min-h-screen bg-brand-gray-50">
@@ -38,23 +77,7 @@ export function AdminLayout() {
           <Scale className="h-6 w-6 text-brand-gold" aria-hidden="true" />
           <span className="font-display text-lg font-semibold">Demo Admin</span>
         </div>
-        <nav className="flex-1 space-y-1 px-3" aria-label="Admin navigation">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              className={({ isActive }) =>
-                `flex items-center gap-3 rounded-sm px-3 py-2.5 text-sm font-medium transition-colors ${
-                  isActive ? "bg-brand-gold text-brand-navy" : "text-brand-gray-200 hover:bg-white/5"
-                }`
-              }
-            >
-              <item.icon className="h-4 w-4" aria-hidden="true" />
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
+        <NavList />
         <button
           type="button"
           onClick={() => signOut()}
@@ -65,8 +88,59 @@ export function AdminLayout() {
         </button>
       </aside>
 
+      {isDrawerOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="absolute inset-0 bg-brand-navy/80"
+            onClick={() => setIsDrawerOpen(false)}
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Admin navigation"
+            className="absolute left-0 top-0 flex h-full w-72 max-w-[80vw] flex-col bg-brand-navy py-5 shadow-xl"
+          >
+            <div className="flex items-center justify-between px-6 pb-5">
+              <div className="flex items-center gap-2 text-brand-cream">
+                <Scale className="h-6 w-6 text-brand-gold" aria-hidden="true" />
+                <span className="font-display text-lg font-semibold">Demo Admin</span>
+              </div>
+              <button
+                type="button"
+                aria-label="Close menu"
+                className="rounded-sm p-1.5 text-brand-cream"
+                onClick={() => setIsDrawerOpen(false)}
+              >
+                <X className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
+
+            <NavList onNavigate={() => setIsDrawerOpen(false)} />
+
+            <button
+              type="button"
+              onClick={() => signOut()}
+              className="mx-3 mt-3 flex items-center gap-3 rounded-sm px-3 py-2.5 text-sm font-medium text-brand-gray-200 hover:bg-white/5"
+            >
+              <LogOut className="h-4 w-4" aria-hidden="true" />
+              Log out
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-1 flex-col">
         <header className="flex items-center justify-between border-b border-brand-gray-200 bg-white px-4 py-3 lg:hidden">
+          <button
+            type="button"
+            aria-label="Open menu"
+            onClick={() => setIsDrawerOpen(true)}
+            className="rounded-sm p-2 text-brand-navy hover:bg-brand-gray-100"
+          >
+            <Menu className="h-5 w-5" aria-hidden="true" />
+          </button>
           <div className="flex items-center gap-2 text-brand-navy">
             <Scale className="h-5 w-5 text-brand-gold-dark" aria-hidden="true" />
             <span className="font-display text-base font-semibold">Demo Admin</span>
@@ -80,27 +154,6 @@ export function AdminLayout() {
             <LogOut className="h-5 w-5" aria-hidden="true" />
           </button>
         </header>
-
-        <nav
-          className="flex gap-1 overflow-x-auto border-b border-brand-gray-200 bg-white px-2 py-2 lg:hidden"
-          aria-label="Admin navigation"
-        >
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              className={({ isActive }) =>
-                `flex shrink-0 items-center gap-1.5 rounded-sm px-3 py-2 text-xs font-medium ${
-                  isActive ? "bg-brand-gold text-brand-navy" : "text-brand-gray-500"
-                }`
-              }
-            >
-              <item.icon className="h-3.5 w-3.5" aria-hidden="true" />
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
 
         <main className="flex-1 p-4 sm:p-6 lg:p-8">
           <Outlet />
