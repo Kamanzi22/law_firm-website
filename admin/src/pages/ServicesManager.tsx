@@ -4,6 +4,7 @@ import { Plus, Trash2, ChevronDown, ChevronUp, Loader2, GripVertical } from "luc
 import { supabase } from "../lib/supabaseClient";
 import { Button } from "../components/ui/Button";
 import { TextField, TextAreaField } from "../components/ui/Field";
+import { QueryError } from "../components/ui/QueryError";
 
 interface ProcessStep {
   title: string;
@@ -53,7 +54,7 @@ function slugify(text: string) {
 
 export function ServicesManager() {
   const queryClient = useQueryClient();
-  const { data: services, isLoading } = useQuery({ queryKey: ["admin-services"], queryFn: fetchServices });
+  const { data: services, isLoading, isError, error } = useQuery({ queryKey: ["admin-services"], queryFn: fetchServices });
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [drafts, setDrafts] = useState<Record<string, ServiceRow>>({});
   const [savingId, setSavingId] = useState<string | null>(null);
@@ -139,6 +140,10 @@ export function ServicesManager() {
     const sort_order = (services?.length ?? 0) + 1;
     setDrafts((prev) => ({ ...prev, [id]: { ...blankService, id, sort_order } }));
     setExpandedId(id);
+  }
+
+  if (isError) {
+    return <QueryError error={error} />;
   }
 
   if (isLoading) {

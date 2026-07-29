@@ -5,6 +5,7 @@ import { supabase } from "../lib/supabaseClient";
 import { Button } from "../components/ui/Button";
 import { TextField, TextAreaField } from "../components/ui/Field";
 import { ImageUploadField } from "../components/ui/ImageUploadField";
+import { QueryError } from "../components/ui/QueryError";
 
 interface TeamOption {
   id: string;
@@ -56,7 +57,7 @@ async function fetchTeamOptions(): Promise<TeamOption[]> {
 
 export function ArticlesManager() {
   const queryClient = useQueryClient();
-  const { data: articles, isLoading } = useQuery({ queryKey: ["admin-articles"], queryFn: fetchArticles });
+  const { data: articles, isLoading, isError, error } = useQuery({ queryKey: ["admin-articles"], queryFn: fetchArticles });
   const { data: teamOptions } = useQuery({ queryKey: ["admin-team-options"], queryFn: fetchTeamOptions });
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [drafts, setDrafts] = useState<Record<string, ArticleRow>>({});
@@ -107,6 +108,10 @@ export function ArticlesManager() {
     const status = row.status === "published" ? "draft" : "published";
     await supabase!.from("articles").update({ status }).eq("id", row.id);
     refresh();
+  }
+
+  if (isError) {
+    return <QueryError error={error} />;
   }
 
   if (isLoading) {

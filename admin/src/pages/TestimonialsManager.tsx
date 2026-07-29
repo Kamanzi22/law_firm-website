@@ -4,6 +4,7 @@ import { Plus, Trash2, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 import { Button } from "../components/ui/Button";
 import { TextField, TextAreaField } from "../components/ui/Field";
+import { QueryError } from "../components/ui/QueryError";
 
 interface TestimonialRow {
   id: string;
@@ -32,7 +33,7 @@ async function fetchTestimonials(): Promise<TestimonialRow[]> {
 
 export function TestimonialsManager() {
   const queryClient = useQueryClient();
-  const { data: testimonials, isLoading } = useQuery({ queryKey: ["admin-testimonials"], queryFn: fetchTestimonials });
+  const { data: testimonials, isLoading, isError, error } = useQuery({ queryKey: ["admin-testimonials"], queryFn: fetchTestimonials });
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [drafts, setDrafts] = useState<Record<string, TestimonialRow>>({});
   const [savingId, setSavingId] = useState<string | null>(null);
@@ -96,6 +97,10 @@ export function TestimonialsManager() {
       supabase!.from("testimonials").update({ sort_order: row.sort_order }).eq("id", other.id),
     ]);
     refresh();
+  }
+
+  if (isError) {
+    return <QueryError error={error} />;
   }
 
   if (isLoading) {

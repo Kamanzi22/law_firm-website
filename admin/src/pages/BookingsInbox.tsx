@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
+import { QueryError } from "../components/ui/QueryError";
 
 interface BookingRow {
   id: string;
@@ -35,12 +36,16 @@ async function fetchBookings(): Promise<BookingRow[]> {
 
 export function BookingsInbox() {
   const queryClient = useQueryClient();
-  const { data: bookings, isLoading } = useQuery({ queryKey: ["admin-bookings"], queryFn: fetchBookings });
+  const { data: bookings, isLoading, isError, error } = useQuery({ queryKey: ["admin-bookings"], queryFn: fetchBookings });
 
   async function updateStatus(id: string, status: BookingRow["status"]) {
     await supabase!.from("bookings").update({ status }).eq("id", id);
     queryClient.invalidateQueries({ queryKey: ["admin-bookings"] });
     queryClient.invalidateQueries({ queryKey: ["dashboard-counts"] });
+  }
+
+  if (isError) {
+    return <QueryError error={error} />;
   }
 
   if (isLoading) {

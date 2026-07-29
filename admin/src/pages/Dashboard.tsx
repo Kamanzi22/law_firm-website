@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { CalendarCheck, Mail, Briefcase, Users } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
+import { QueryError } from "../components/ui/QueryError";
 
 async function fetchCounts() {
   const [pendingBookings, newMessages, services, team] = await Promise.all([
@@ -10,6 +11,9 @@ async function fetchCounts() {
     supabase!.from("services").select("id", { count: "exact", head: true }).eq("is_active", true),
     supabase!.from("team_members").select("id", { count: "exact", head: true }).eq("is_active", true),
   ]);
+
+  const firstError = pendingBookings.error ?? newMessages.error ?? services.error ?? team.error;
+  if (firstError) throw firstError;
 
   return {
     pendingBookings: pendingBookings.count ?? 0,
@@ -20,7 +24,7 @@ async function fetchCounts() {
 }
 
 export function Dashboard() {
-  const { data, isLoading } = useQuery({ queryKey: ["dashboard-counts"], queryFn: fetchCounts });
+  const { data, isLoading, isError, error } = useQuery({ queryKey: ["dashboard-counts"], queryFn: fetchCounts });
 
   const cards = [
     { label: "Pending Bookings", value: data?.pendingBookings, to: "/bookings", icon: CalendarCheck },
@@ -33,6 +37,12 @@ export function Dashboard() {
     <div>
       <h1 className="font-display text-2xl font-semibold text-brand-navy">Dashboard</h1>
       <p className="mt-1 text-brand-gray-500">Overview of what's happening on the site.</p>
+
+      {isError && (
+        <div className="mt-6">
+          <QueryError error={error} />
+        </div>
+      )}
 
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((card) => (

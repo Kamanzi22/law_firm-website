@@ -5,6 +5,7 @@ import { supabase } from "../lib/supabaseClient";
 import { Button } from "../components/ui/Button";
 import { TextField, TextAreaField } from "../components/ui/Field";
 import { ImageUploadField } from "../components/ui/ImageUploadField";
+import { QueryError } from "../components/ui/QueryError";
 
 interface FirmProfileRow {
   id: number;
@@ -51,7 +52,7 @@ async function fetchProfile() {
 
 export function FirmProfileEditor() {
   const queryClient = useQueryClient();
-  const { data, isLoading } = useQuery({ queryKey: ["admin-firm-profile"], queryFn: fetchProfile });
+  const { data, isLoading, isError, error } = useQuery({ queryKey: ["admin-firm-profile"], queryFn: fetchProfile });
 
   const [form, setForm] = useState<FirmProfileRow | null>(null);
   const [hours, setHours] = useState<OfficeHourRow[]>([]);
@@ -66,6 +67,10 @@ export function FirmProfileEditor() {
       setMembershipsText(data.profile.memberships.join(", "));
     }
   }, [data]);
+
+  if (isError) {
+    return <QueryError error={error} />;
+  }
 
   if (isLoading || !form) {
     return (

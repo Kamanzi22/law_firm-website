@@ -1,6 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
+import { QueryError } from "../components/ui/QueryError";
 
 interface MessageRow {
   id: string;
@@ -29,12 +30,16 @@ async function fetchMessages(): Promise<MessageRow[]> {
 
 export function MessagesInbox() {
   const queryClient = useQueryClient();
-  const { data: messages, isLoading } = useQuery({ queryKey: ["admin-messages"], queryFn: fetchMessages });
+  const { data: messages, isLoading, isError, error } = useQuery({ queryKey: ["admin-messages"], queryFn: fetchMessages });
 
   async function updateStatus(id: string, status: MessageRow["status"]) {
     await supabase!.from("contact_messages").update({ status }).eq("id", id);
     queryClient.invalidateQueries({ queryKey: ["admin-messages"] });
     queryClient.invalidateQueries({ queryKey: ["dashboard-counts"] });
+  }
+
+  if (isError) {
+    return <QueryError error={error} />;
   }
 
   if (isLoading) {

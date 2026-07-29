@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus, Trash2, Save, Loader2, CheckCircle2 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 import { Button } from "../components/ui/Button";
+import { QueryError } from "../components/ui/QueryError";
 
 interface BookingSettingsRow {
   id: number;
@@ -37,7 +38,7 @@ async function fetchSettings(): Promise<BookingSettingsRow> {
 
 export function AvailabilityEditor() {
   const queryClient = useQueryClient();
-  const { data, isLoading } = useQuery({ queryKey: ["admin-booking-settings"], queryFn: fetchSettings });
+  const { data, isLoading, isError, error } = useQuery({ queryKey: ["admin-booking-settings"], queryFn: fetchSettings });
   const [form, setForm] = useState<BookingSettingsRow | null>(null);
   const [newBlackout, setNewBlackout] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -46,6 +47,10 @@ export function AvailabilityEditor() {
   useEffect(() => {
     if (data) setForm(data);
   }, [data]);
+
+  if (isError) {
+    return <QueryError error={error} />;
+  }
 
   if (isLoading || !form) {
     return (
