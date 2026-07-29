@@ -12,11 +12,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png'],
       manifest: {
-        // REPLACE: name/short_name/description/colors/icons once the real
-        // brand assets are ready — see public/icons/ for placeholder icons.
-        name: 'Demo & Partners Advocates',
-        short_name: 'Demo & Partners',
-        description: "Commercial law counsel built for Rwanda's growing economy.",
+        name: 'Demo & Partners — Admin',
+        short_name: 'Demo Admin',
+        description: 'Manage the Demo & Partners website: firm profile, services, team, bookings and more.',
         theme_color: '#0b1d33',
         background_color: '#0b1d33',
         display: 'standalone',

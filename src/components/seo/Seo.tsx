@@ -9,7 +9,7 @@ interface SeoProps {
 }
 
 // REPLACE: set to the real production domain before launch.
-const SITE_URL = "https://www.karisimbipartners.example";
+const SITE_URL = "https://www.demopartners.example";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og/default-og.svg`;
 
 function setMetaTag(attr: "name" | "property", key: string, content: string) {

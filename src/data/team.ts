@@ -26,7 +26,7 @@ export const team: TeamMember[] = [
       "LL.M, International Business Law, University of London",
       "LL.B, National University of Rwanda",
     ],
-    email: "e.mugisha@karisimbipartners.example",
+    email: "e.mugisha@demopartners.example",
   },
   {
     slug: "aline-uwase",
@@ -39,7 +39,7 @@ export const team: TeamMember[] = [
       "LL.B, University of Rwanda",
       "Certificate in International Arbitration, CIArb",
     ],
-    email: "a.uwase@karisimbipartners.example",
+    email: "a.uwase@demopartners.example",
   },
   {
     slug: "jean-paul-nshimiyimana",
@@ -49,7 +49,7 @@ export const team: TeamMember[] = [
     bio: "Jean Paul advises developers and landowners on acquisitions, titling and construction contracts, with close working relationships across Rwanda's land administration bodies.",
     focusAreas: ["real-estate-construction"],
     education: ["LL.B, University of Rwanda"],
-    email: "jp.nshimiyimana@karisimbipartners.example",
+    email: "jp.nshimiyimana@demopartners.example",
   },
   {
     slug: "claudine-ingabire",
@@ -62,7 +62,7 @@ export const team: TeamMember[] = [
       "LL.B, National University of Rwanda",
       "Postgraduate Diploma in Legal Practice, IRDP",
     ],
-    email: "c.ingabire@karisimbipartners.example",
+    email: "c.ingabire@demopartners.example",
   },
   {
     slug: "patrick-habimana",
@@ -72,7 +72,7 @@ export const team: TeamMember[] = [
     bio: "Patrick works with businesses on tax structuring and regulatory compliance, and regularly liaises with the Rwanda Revenue Authority on behalf of clients.",
     focusAreas: ["tax-regulatory"],
     education: ["LL.B, University of Rwanda"],
-    email: "p.habimana@karisimbipartners.example",
+    email: "p.habimana@demopartners.example",
   },
   {
     slug: "diane-mukamana",
@@ -82,7 +82,7 @@ export const team: TeamMember[] = [
     bio: "Diane helps founders and creative businesses register and protect trademarks, patents and copyright, and advises on IP terms in commercial agreements.",
     focusAreas: ["intellectual-property", "corporate-commercial"],
     education: ["LL.B, University of Rwanda"],
-    email: "d.mukamana@karisimbipartners.example",
+    email: "d.mukamana@demopartners.example",
   },
 ];
 

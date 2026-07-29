@@ -23,7 +23,7 @@ export function About() {
           <Reveal>
             <img
               src="/images/about-story.svg"
-              alt="Karisimbi & Partners office placeholder"
+              alt="Demo & Partners office placeholder"
               className="w-full rounded-sm"
             />
           </Reveal>

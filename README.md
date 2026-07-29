@@ -1,13 +1,13 @@
-# Karisimbi & Partners Advocates — Client Site
+# Demo & Partners Advocates — Client Site
 
 The public-facing website for a fictional Kigali-based commercial law firm.
-This is one of **two connected apps**:
+This repo holds **three connected pieces**:
 
-- **This app** — what clients/visitors see (this folder)
-- **`../karisimbi-admin/`** — where the firm edits everything below, from a
-  phone or desktop, without touching code
-- **`../karisimbi-supabase/`** — the shared database schema both apps read
-  from / write to
+- **This app** (repo root) — what clients/visitors see
+- **`admin/`** — where the firm edits everything below, from a phone or
+  desktop, without touching code
+- **`supabase/`** — the shared database schema both apps read from / write
+  to
 
 All three share one Supabase backend. Without it configured, this app runs
 entirely on bundled placeholder content (great for demos); once connected,
@@ -27,12 +27,12 @@ npm run preview  # preview the production build locally
 
 ## Connecting to the live backend (optional for a demo, required for editing)
 
-1. Set up Supabase once — see `../karisimbi-supabase/README.md`.
+1. Set up Supabase once — see `supabase/README.md`.
 2. Copy `.env.example` to `.env` and paste in your Supabase project URL and
    anon key.
 3. Restart the dev server. The site now reads/writes live data instead of
-   the bundled placeholders, and content edited in `karisimbi-admin` shows
-   up here automatically.
+   the bundled placeholders, and content edited in `admin/` shows up here
+   automatically.
 
 Without `.env` set, every page silently falls back to the typed data in
 `src/data/` — nothing breaks, it just isn't editable.
@@ -91,6 +91,8 @@ forms would need matching per-locale fields.
 ## Project structure
 
 ```
+admin/          Admin app (separate Vite project — see admin/README.md)
+supabase/       SQL schema, seed data, setup + deployment docs
 src/
   data/         Typed placeholder/fallback content
   lib/
@@ -115,8 +117,8 @@ public/
 
 Colors, fonts and radii are defined once in `src/index.css` under the
 Tailwind v4 `@theme` block — change a value there and it propagates
-everywhere. The admin app (`../karisimbi-admin/src/index.css`) uses the
-identical token block — keep both in sync if rebranding.
+everywhere. The admin app (`admin/src/index.css`) uses the identical token
+block — keep both in sync if rebranding.
 
 ## PWA
 
@@ -127,8 +129,10 @@ before launch.
 
 ## Deploying
 
-See `../karisimbi-supabase/DEPLOYMENT.md` for the full walkthrough (Supabase
-project → this app → the admin app, all free tier).
+See `supabase/DEPLOYMENT.md` for the full walkthrough (Supabase project →
+this app → the admin app, all free tier). Both apps deploy from this same
+repo as two separate Vercel projects, each with its **Root Directory** set
+accordingly (`.` for this app, `admin` for the admin app).
 
 ## Disclaimer
 

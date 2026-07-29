@@ -41,8 +41,8 @@ export interface FirmData {
 
 // REPLACE: firm identity, address, contact details and membership bodies.
 export const firm: FirmData = {
-  name: "Karisimbi & Partners Advocates",
-  shortName: "Karisimbi & Partners",
+  name: "Demo & Partners Advocates",
+  shortName: "Demo & Partners",
   tagline: "Commercial law counsel built for Rwanda's growing economy.",
   positioning:
     "We advise ambitious businesses, investors and institutions on the deals, disputes and regulatory matters that define their growth.",
@@ -57,7 +57,7 @@ export const firm: FirmData = {
   phone: "+250 7XX XXX XXX",
   phoneHref: "+2507XXXXXXXX",
   whatsappNumber: "2507XXXXXXXX",
-  email: "info@karisimbipartners.example",
+  email: "info@demopartners.example",
   mapEmbedPlaceholder: "KG 7 Ave, Kacyiru, Kigali, Rwanda",
   socials: {
     linkedin: "https://www.linkedin.com/company/example",

@@ -11,7 +11,7 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "Karisimbi & Partners guided us through a complex joint venture with a level of clarity we hadn't experienced with counsel before. They anticipated issues before they became problems.",
+      "Demo & Partners guided us through a complex joint venture with a level of clarity we hadn't experienced with counsel before. They anticipated issues before they became problems.",
     author: "Sarah K.",
     role: "Chief Executive Officer",
     company: "A regional logistics company",

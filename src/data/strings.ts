@@ -75,7 +75,7 @@ export const strings = {
     backToServices: "All Services",
   },
   about: {
-    pageHeading: "About Karisimbi & Partners",
+    pageHeading: "About Demo & Partners",
     storyHeading: "Our Story",
     valuesHeading: "Our Values",
     timelineHeading: "Our Journey",
@@ -101,7 +101,7 @@ export const strings = {
     },
   ],
   timeline: [
-    { year: "2011", event: "Karisimbi & Partners founded in Kigali with a two-person team." },
+    { year: "2011", event: "Demo & Partners founded in Kigali with a two-person team." },
     { year: "2014", event: "Opened dedicated Litigation & Arbitration practice." },
     { year: "2017", event: "Advised on the firm's first cross-border joint venture exceeding $10M." },
     { year: "2020", event: "Grew to 18 team members across six practice areas." },
@@ -154,7 +154,7 @@ export const strings = {
     descriptionLabel: "Briefly describe your matter",
     descriptionPlaceholder: "Share a short summary — no need for full detail yet.",
     consentLabel:
-      "I consent to Karisimbi & Partners contacting me about this request and understand this form does not create an attorney-client relationship.",
+      "I consent to Demo & Partners contacting me about this request and understand this form does not create an attorney-client relationship.",
     back: "Back",
     next: "Next",
     submit: "Confirm Booking",
