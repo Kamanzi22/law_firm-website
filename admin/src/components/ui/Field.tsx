@@ -64,6 +64,9 @@ export function PasswordField({ label, hint, id, className = "", ...rest }: Pass
         <input
           id={id}
           type={isVisible ? "text" : "password"}
+          autoCapitalize="off"
+          autoCorrect="off"
+          spellCheck={false}
           className={`w-full rounded-sm border border-brand-gray-300 bg-white px-3 py-2 pr-10 text-sm text-brand-ink focus-visible:border-brand-gold ${className}`}
           {...rest}
         />
