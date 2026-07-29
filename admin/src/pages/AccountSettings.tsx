@@ -3,7 +3,7 @@ import { Loader2, CheckCircle2, KeyRound } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 import { useAuth } from "../lib/AuthProvider";
 import { Button } from "../components/ui/Button";
-import { TextField } from "../components/ui/Field";
+import { TextField, PasswordField } from "../components/ui/Field";
 
 export function AccountSettings() {
   const { session } = useAuth();
@@ -95,10 +95,9 @@ export function AccountSettings() {
           <p>Your current password is required to confirm any change below.</p>
         </div>
 
-        <TextField
+        <PasswordField
           id="current-password"
           label="Current password"
-          type="password"
           autoComplete="current-password"
           value={currentPassword}
           onChange={(e) => setCurrentPassword(e.target.value)}
@@ -117,10 +116,9 @@ export function AccountSettings() {
           hint="Change this to update your login email. You'll need to confirm via the new inbox."
         />
 
-        <TextField
+        <PasswordField
           id="new-password"
           label="New password"
-          type="password"
           autoComplete="new-password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
@@ -128,10 +126,9 @@ export function AccountSettings() {
         />
 
         {newPassword && (
-          <TextField
+          <PasswordField
             id="confirm-password"
             label="Confirm new password"
-            type="password"
             autoComplete="new-password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}

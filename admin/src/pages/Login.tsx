@@ -5,7 +5,7 @@ import { useAuth } from "../lib/AuthProvider";
 import { isSupabaseConfigured } from "../lib/supabaseClient";
 import { SupabaseNotConfigured } from "./SupabaseNotConfigured";
 import { Button } from "../components/ui/Button";
-import { TextField } from "../components/ui/Field";
+import { TextField, PasswordField } from "../components/ui/Field";
 
 export function Login() {
   const { session, signIn } = useAuth();
@@ -50,10 +50,9 @@ export function Login() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <TextField
+          <PasswordField
             id="login-password"
             label="Password"
-            type="password"
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
