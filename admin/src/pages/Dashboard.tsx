@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CalendarCheck, Mail, Briefcase, Users } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 import { QueryError } from "../components/ui/QueryError";
+import { WebsiteActivity } from "../components/WebsiteActivity";
 
 async function fetchCounts() {
   const [pendingBookings, newMessages, services, team] = await Promise.all([
@@ -58,6 +59,10 @@ export function Dashboard() {
             <p className="mt-1 text-sm text-brand-gray-500">{card.label}</p>
           </Link>
         ))}
+      </div>
+
+      <div className="mt-8">
+        <WebsiteActivity />
       </div>
     </div>
   );

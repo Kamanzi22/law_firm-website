@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { trackPageView } from "./lib/analytics";
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
 import { WhatsAppFloat } from "./components/layout/WhatsAppFloat";
@@ -19,6 +20,14 @@ function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo({ top: 0 });
+  }, [pathname]);
+  return null;
+}
+
+function AnalyticsTracker() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    void trackPageView(pathname);
   }, [pathname]);
   return null;
 }
@@ -58,6 +67,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <AnalyticsTracker />
       <Layout />
     </BrowserRouter>
   );
