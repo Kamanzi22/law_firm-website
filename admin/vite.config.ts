@@ -10,13 +10,16 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      // We register the service worker ourselves in main.tsx (with a
+      // periodic update check), so skip the auto-injected register script.
+      injectRegister: false,
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png'],
       manifest: {
         name: 'Demo & Partners — Admin',
         short_name: 'Demo Admin',
         description: 'Manage the Demo & Partners website: firm profile, services, team, bookings and more.',
-        theme_color: '#0b1d33',
-        background_color: '#0b1d33',
+        theme_color: '#0a0a0a',
+        background_color: '#0a0a0a',
         display: 'standalone',
         start_url: '/',
         icons: [
@@ -27,6 +30,10 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+        // A new deploy takes over immediately instead of waiting for every
+        // open tab to fully close.
+        skipWaiting: true,
+        clientsClaim: true,
       },
     }),
   ],

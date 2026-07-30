@@ -10,6 +10,9 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
+      // We register the service worker ourselves in main.tsx (with a
+      // periodic update check), so skip the auto-injected register script.
+      injectRegister: false,
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png'],
       manifest: {
         // REPLACE: name/short_name/description/colors/icons once the real
@@ -17,8 +20,8 @@ export default defineConfig({
         name: 'Demo & Partners Advocates',
         short_name: 'Demo & Partners',
         description: "Commercial law counsel built for Rwanda's growing economy.",
-        theme_color: '#0b1d33',
-        background_color: '#0b1d33',
+        theme_color: '#0a0a0a',
+        background_color: '#0a0a0a',
         display: 'standalone',
         start_url: '/',
         icons: [
@@ -29,6 +32,11 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+        // A new deploy takes over immediately instead of waiting for every
+        // open tab to fully close — this is what was causing "I don't see
+        // the changes" after a push until a hard refresh.
+        skipWaiting: true,
+        clientsClaim: true,
       },
     }),
   ],
