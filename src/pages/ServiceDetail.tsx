@@ -28,19 +28,19 @@ export function ServiceDetail() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             to="/services"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-navy/70 hover:text-brand-navy"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             {strings.services.backToServices}
           </Link>
 
           <div className="mt-6 flex items-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-sm bg-brand-navy/10 text-brand-navy">
+            <div className="flex h-14 w-14 items-center justify-center rounded-sm bg-white/10 text-white">
               <ServiceIcon icon={service.icon} className="h-7 w-7" />
             </div>
-            <h1 className="font-display text-3xl font-semibold text-brand-navy sm:text-4xl">{service.name}</h1>
+            <h1 className="font-display text-3xl font-semibold text-white sm:text-4xl">{service.name}</h1>
           </div>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-brand-navy/80">{service.overview}</p>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">{service.overview}</p>
         </div>
       </section>
 
@@ -83,7 +83,7 @@ export function ServiceDetail() {
 
       <section className="bg-brand-teal py-16">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="font-display text-2xl font-semibold text-brand-navy sm:text-3xl">
+          <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
             {strings.services.ctaHeading}
           </h2>
           <Button to={`/book?matter=${service.slug}`} size="lg" variant="invert">

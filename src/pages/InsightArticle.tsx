@@ -24,19 +24,19 @@ export function InsightArticle() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Link
             to="/insights"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-navy/70 hover:text-brand-navy"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             {strings.insightsPage.backToInsights}
           </Link>
 
-          <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-brand-navy/70">
+          <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-white/70">
             {article.category}
           </p>
-          <h1 className="mt-2 font-display text-3xl font-semibold text-brand-navy sm:text-4xl">
+          <h1 className="mt-2 font-display text-3xl font-semibold text-white sm:text-4xl">
             {article.title}
           </h1>
-          <p className="mt-4 text-sm text-brand-navy/70">
+          <p className="mt-4 text-sm text-white/70">
             {formatArticleDate(article.date)} · {author?.name} · {article.readingMinutes} min read
           </p>
         </div>

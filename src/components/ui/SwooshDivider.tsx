@@ -4,9 +4,10 @@ interface SwooshDividerProps {
 }
 
 /**
- * A curved teal divider echoing the swoosh in the ICA logo/business card.
+ * A curved black divider echoing the swoosh in the logo/business card.
  * Sits between two sections — the fill color matches the section above by
- * default (bg-brand-teal), flip it when the teal section is below instead.
+ * default (bg-brand-teal, which holds black in this palette), flip it
+ * when that section is below instead.
  */
 export function SwooshDivider({ flip = false }: SwooshDividerProps) {
   return (

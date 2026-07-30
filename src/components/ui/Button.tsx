@@ -8,13 +8,15 @@ const base =
   "inline-flex items-center justify-center gap-2 font-sans font-semibold transition-colors duration-200 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-60 disabled:cursor-not-allowed";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-brand-teal text-brand-navy hover:bg-brand-teal-dark",
-  secondary: "bg-transparent text-brand-navy border border-brand-navy/30 hover:border-brand-navy hover:bg-brand-navy/5",
+  // Black fill, white text — for buttons on white/cream sections.
+  primary: "bg-brand-teal text-brand-cream hover:bg-brand-teal-dark",
+  // Light outline — for buttons sitting directly on a black section.
+  secondary: "bg-transparent text-brand-cream border border-brand-cream/40 hover:border-brand-cream hover:bg-white/5",
+  // Dark outline — for secondary actions on white/cream sections.
   ghost: "bg-transparent text-brand-navy border border-brand-navy/20 hover:bg-brand-navy/5",
-  // Solid dark button for the rare case a strong CTA sits directly on a
-  // teal-background section (teal-on-teal or green-on-teal both fail
-  // contrast, so this inverts to a dark fill instead).
-  invert: "bg-brand-navy text-brand-cream hover:bg-brand-navy-light",
+  // White fill, black text — for a strong CTA that needs to sit directly
+  // on a black section (a black-on-black fill would have no boundary).
+  invert: "bg-white text-brand-navy hover:bg-brand-gray-100",
 };
 
 const sizes: Record<Size, string> = {

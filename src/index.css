@@ -4,38 +4,35 @@
   Design tokens. Change values here to rebrand the entire site
   (colors, fonts, radii, container width) from one place.
 
-  Brand: ICA — Inner City Attorneys. Teal is the dominant color (header,
-  hero, primary buttons); green is a secondary accent only (links, hover,
-  icons); body text stays near-black for contrast, since neither teal nor
-  green pass AA contrast as text-on-white or as a background under light
-  text — see the "ink" role below.
+  Brand: black & white, no color accents. "navy" and "teal" both hold the
+  same rich-black value — navy is used for text/headings, teal for large
+  section backgrounds — so headings on white sections and light text on
+  black sections both stay maximally legible. "gold" holds grayscale
+  values for the one subtle accent role (links/hover), not a hue.
 */
 @theme {
-  --color-brand-teal: #28c9e2;
-  --color-brand-teal-dark: #1fa6bc;
-  --color-brand-teal-light: #6fdcec;
+  --color-brand-teal: #0a0a0a;
+  --color-brand-teal-dark: #262626;
+  --color-brand-teal-light: #e5e5e5;
 
-  --color-brand-gold: #93b849; /* secondary accent (green) — decorative/icon use, not small text (fails AA on white) */
-  --color-brand-gold-light: #a9c86e; /* decorative tints/hovers only, not text */
-  --color-brand-gold-dark: #5c7a32; /* darkened from the logo's green so it passes 4.5:1 as link/text color on white */
+  --color-brand-gold: #999999; /* accent — only used undarkened on the dark footer (hover), tuned for that */
+  --color-brand-gold-light: #d9d9d9; /* decorative tints only, not text */
+  --color-brand-gold-dark: #000000; /* pure black — the only accent shade safe as small text on white */
 
-  /* "navy" now holds the dark ink/heading color, not a background — every
-     bg-brand-navy usage below is a large section background and has been
-     migrated to bg-brand-teal (which needs dark text, not light). */
-  --color-brand-navy: #1a1a1a;
-  --color-brand-navy-light: #333333;
-  --color-brand-charcoal: #16181d;
+  --color-brand-navy: #0a0a0a;
+  --color-brand-navy-light: #262626;
+  --color-brand-charcoal: #0a0a0a;
 
-  --color-brand-cream: #fafaf7;
-  --color-brand-ink: #1a1a1a;
+  --color-brand-cream: #fafafa;
+  --color-brand-ink: #0a0a0a;
 
-  --color-brand-gray-50: #f8f8f7;
-  --color-brand-gray-100: #efeee9;
-  --color-brand-gray-200: #dedcd3;
-  --color-brand-gray-300: #b9b6ac;
-  --color-brand-gray-400: #8d897d;
-  --color-brand-gray-500: #666256;
-  --color-brand-gray-600: #4a473e;
+  --color-brand-gray-50: #fafafa;
+  --color-brand-gray-100: #f0f0f0;
+  --color-brand-gray-200: #e0e0e0;
+  --color-brand-gray-300: #c2c2c2;
+  --color-brand-gray-400: #9e9e9e;
+  --color-brand-gray-500: #707070;
+  --color-brand-gray-600: #454545;
 
   --font-display: "Fraunces", "Georgia", serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;

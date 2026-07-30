@@ -34,7 +34,7 @@ export function Header() {
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `text-sm font-medium transition-colors ${
-      isActive ? "text-brand-navy underline underline-offset-4" : "text-brand-navy/70 hover:text-brand-navy"
+      isActive ? "text-white underline underline-offset-4" : "text-white/70 hover:text-white"
     }`;
 
   return (
@@ -44,11 +44,11 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <NavLink to="/" className="flex items-center gap-2 text-brand-navy" aria-label={`${firm.name} home`}>
+        <NavLink to="/" className="flex items-center gap-2 text-white" aria-label={`${firm.name} home`}>
           {firm.logoUrl ? (
             <img src={firm.logoUrl} alt="" className="h-7 w-auto" aria-hidden="true" />
           ) : (
-            <Scale className="h-6 w-6 text-brand-navy" aria-hidden="true" />
+            <Scale className="h-6 w-6 text-white" aria-hidden="true" />
           )}
           <span className="font-display text-lg font-semibold leading-tight sm:text-xl">
             {firm.shortName}
@@ -71,7 +71,7 @@ export function Header() {
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-sm p-2 text-brand-navy lg:hidden"
+          className="inline-flex items-center justify-center rounded-sm p-2 text-white lg:hidden"
           aria-label={strings.nav.menu}
           aria-expanded={isDrawerOpen}
           aria-controls="mobile-drawer"
@@ -97,11 +97,11 @@ export function Header() {
             className="absolute left-0 top-0 flex h-full w-full max-w-xs flex-col gap-8 bg-brand-teal px-6 py-6 shadow-xl"
           >
             <div className="flex items-center justify-between">
-              <span className="font-display text-lg font-semibold text-brand-navy">{firm.shortName}</span>
+              <span className="font-display text-lg font-semibold text-white">{firm.shortName}</span>
               <button
                 type="button"
                 aria-label={strings.nav.closeMenu}
-                className="rounded-sm p-2 text-brand-navy"
+                className="rounded-sm p-2 text-white"
                 onClick={() => setIsDrawerOpen(false)}
               >
                 <X className="h-6 w-6" aria-hidden="true" />
@@ -115,7 +115,7 @@ export function Header() {
                   to={item.to}
                   end={item.to === "/"}
                   className={({ isActive }) =>
-                    `font-display text-2xl font-medium text-brand-navy ${isActive ? "underline underline-offset-4" : ""}`
+                    `font-display text-2xl font-medium text-white ${isActive ? "underline underline-offset-4" : ""}`
                   }
                   onClick={() => setIsDrawerOpen(false)}
                 >

@@ -142,7 +142,7 @@ export function ResetPassword() {
             </div>
             <Link
               to="/"
-              className="mt-4 inline-block rounded-sm bg-brand-teal px-4 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-teal-dark"
+              className="mt-4 inline-block rounded-sm bg-brand-teal px-4 py-2 text-sm font-semibold text-brand-cream hover:bg-brand-teal-dark"
             >
               Continue to dashboard
             </Link>

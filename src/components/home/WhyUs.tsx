@@ -18,9 +18,9 @@ export function WhyUs() {
             const Icon = icons[index % icons.length];
             return (
               <Reveal key={item.title} delayMs={index * 60}>
-                <Icon className="h-8 w-8 text-brand-navy" aria-hidden="true" />
-                <h3 className="mt-4 font-display text-lg font-semibold text-brand-navy">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-brand-navy/75">{item.description}</p>
+                <Icon className="h-8 w-8 text-white" aria-hidden="true" />
+                <h3 className="mt-4 font-display text-lg font-semibold text-white">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/75">{item.description}</p>
               </Reveal>
             );
           })}

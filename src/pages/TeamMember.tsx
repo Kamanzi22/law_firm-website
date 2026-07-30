@@ -21,7 +21,7 @@ export function TeamMember() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Link
             to="/about"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-navy/70 hover:text-brand-navy"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             {strings.about.teamHeading}
