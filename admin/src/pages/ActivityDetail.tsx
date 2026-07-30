@@ -7,6 +7,11 @@ import { QueryError } from "../components/ui/QueryError";
 
 type Period = "day" | "week" | "month" | "year";
 
+// REPLACE: adjust if the site actually starts collecting analytics on a
+// different date — this is the earliest selectable year in the picker.
+const EARLIEST_YEAR = 2026;
+const EARLIEST_YEAR_START = new Date(2026, 7, 1); // August 1, 2026
+
 interface SessionRow {
   id: string;
   started_at: string;
@@ -27,19 +32,36 @@ const PERIODS: { value: Period; label: string }[] = [
   { value: "year", label: "Year" },
 ];
 
-function periodStart(period: Period): Date {
+const currentYear = new Date().getFullYear();
+const YEAR_OPTIONS = Array.from(
+  { length: Math.max(1, currentYear - EARLIEST_YEAR + 1) },
+  (_, i) => EARLIEST_YEAR + i,
+);
+
+function getDateRange(period: Period, year: number): { start: Date; end: Date } {
   const now = new Date();
-  if (period === "day") return new Date(now.getTime() - 24 * 60 * 60 * 1000);
-  if (period === "week") return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-  if (period === "month") return new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-  return new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+  if (period === "day") return { start: new Date(now.getTime() - 24 * 60 * 60 * 1000), end: now };
+  if (period === "week") return { start: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000), end: now };
+  if (period === "month") return { start: new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000), end: now };
+  // year: a specific calendar year, clamped to when tracking actually starts
+  const start = year === EARLIEST_YEAR ? EARLIEST_YEAR_START : new Date(year, 0, 1);
+  const end = new Date(year + 1, 0, 1);
+  return { start, end };
 }
 
-async function fetchActivity(period: Period) {
-  const since = periodStart(period).toISOString();
+async function fetchActivity(period: Period, year: number) {
+  const { start, end } = getDateRange(period, year);
   const [sessionsRes, pageViewsRes] = await Promise.all([
-    supabase!.from("site_sessions").select("id, started_at, last_seen_at, country, city").gte("started_at", since),
-    supabase!.from("page_views").select("path, viewed_at").gte("viewed_at", since),
+    supabase!
+      .from("site_sessions")
+      .select("id, started_at, last_seen_at, country, city")
+      .gte("started_at", start.toISOString())
+      .lt("started_at", end.toISOString()),
+    supabase!
+      .from("page_views")
+      .select("path, viewed_at")
+      .gte("viewed_at", start.toISOString())
+      .lt("viewed_at", end.toISOString()),
   ]);
   if (sessionsRes.error) throw sessionsRes.error;
   if (pageViewsRes.error) throw pageViewsRes.error;
@@ -70,7 +92,7 @@ function formatDuration(totalSeconds: number): string {
   return `${hours}h ${minutes % 60}m`;
 }
 
-function buildTimeline(sessions: SessionRow[], period: Period): { label: string; count: number }[] {
+function buildTimeline(sessions: SessionRow[], period: Period, year: number): { label: string; count: number }[] {
   const now = new Date();
 
   if (period === "day") {
@@ -124,12 +146,13 @@ function buildTimeline(sessions: SessionRow[], period: Period): { label: string;
     });
   }
 
+  // year: Jan–Dec of the selected year (months before tracking started just read 0)
   const buckets = Array.from({ length: 12 }, (_, i) => {
-    const start = new Date(now.getFullYear(), now.getMonth() - (11 - i), 1);
+    const start = new Date(year, i, 1);
     return { label: start.toLocaleDateString("en-US", { month: "short" }), start };
   });
   return buckets.map((b, i) => {
-    const end = i < buckets.length - 1 ? buckets[i + 1].start : new Date(now.getFullYear(), now.getMonth() + 1, 1);
+    const end = i < buckets.length - 1 ? buckets[i + 1].start : new Date(year + 1, 0, 1);
     const count = sessions.filter((s) => {
       const t = new Date(s.started_at).getTime();
       return t >= b.start.getTime() && t < end.getTime();
@@ -180,9 +203,10 @@ function RankedList({ items, emptyLabel }: { items: { label: string; count: numb
 
 export function ActivityDetail() {
   const [period, setPeriod] = useState<Period>("week");
+  const [year, setYear] = useState<number>(currentYear >= EARLIEST_YEAR ? currentYear : EARLIEST_YEAR);
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["admin-activity-detail", period],
-    queryFn: () => fetchActivity(period),
+    queryKey: ["admin-activity-detail", period, year],
+    queryFn: () => fetchActivity(period, year),
   });
 
   const stats = useMemo(() => {
@@ -218,10 +242,10 @@ export function ActivityDetail() {
       .sort((a, b) => b.count - a.count)
       .slice(0, 6);
 
-    const timeline = buildTimeline(sessions, period);
+    const timeline = buildTimeline(sessions, period, year);
 
     return { totalVisits, avgDurationSeconds, topSections, topLocations, timeline };
-  }, [data, period]);
+  }, [data, period, year]);
 
   return (
     <div>
@@ -238,19 +262,35 @@ export function ActivityDetail() {
           <h1 className="font-display text-2xl font-semibold text-brand-navy">Website Activity</h1>
           <p className="mt-1 text-brand-gray-500">Detailed breakdown of visits to the client site.</p>
         </div>
-        <div className="flex rounded-sm border border-brand-gray-200 p-0.5">
-          {PERIODS.map((p) => (
-            <button
-              key={p.value}
-              type="button"
-              onClick={() => setPeriod(p.value)}
-              className={`rounded-sm px-3 py-1.5 text-sm font-medium transition-colors ${
-                period === p.value ? "bg-brand-navy text-brand-cream" : "text-brand-gray-500 hover:text-brand-navy"
-              }`}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex rounded-sm border border-brand-gray-200 p-0.5">
+            {PERIODS.map((p) => (
+              <button
+                key={p.value}
+                type="button"
+                onClick={() => setPeriod(p.value)}
+                className={`rounded-sm px-3 py-1.5 text-sm font-medium transition-colors ${
+                  period === p.value ? "bg-brand-navy text-brand-cream" : "text-brand-gray-500 hover:text-brand-navy"
+                }`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+          {period === "year" && (
+            <select
+              value={year}
+              onChange={(e) => setYear(Number(e.target.value))}
+              className="rounded-sm border border-brand-gray-300 bg-white px-3 py-1.5 text-sm text-brand-navy focus-visible:border-brand-gold-dark"
+              aria-label="Select year"
             >
-              {p.label}
-            </button>
-          ))}
+              {YEAR_OPTIONS.map((y) => (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
       </div>
 
