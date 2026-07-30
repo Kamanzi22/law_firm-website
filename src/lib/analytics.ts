@@ -54,19 +54,21 @@ export function initAnalytics(): Promise<void> {
     }
 
     const { country, city } = await lookupLocation();
-    const { data, error } = await supabase!
-      .from("site_sessions")
-      .insert({
-        country,
-        city,
-        device_type: getDeviceType(),
-        referrer: document.referrer || null,
-      })
-      .select("id")
-      .single();
+    // Generate the id client-side and insert it explicitly, rather than
+    // reading it back via .select() — RLS allows anonymous INSERT on this
+    // table but not SELECT, and Postgres evaluates a chained .select()'s
+    // implicit RETURNING against the SELECT policy, which would reject it.
+    const newSessionId = crypto.randomUUID();
+    const { error } = await supabase!.from("site_sessions").insert({
+      id: newSessionId,
+      country,
+      city,
+      device_type: getDeviceType(),
+      referrer: document.referrer || null,
+    });
 
-    if (error || !data) return;
-    sessionId = data.id as string;
+    if (error) return;
+    sessionId = newSessionId;
     sessionStorage.setItem(SESSION_KEY, sessionId);
     startHeartbeat();
   })();
