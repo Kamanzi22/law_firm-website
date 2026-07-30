@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { trackPageView } from "./lib/analytics";
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
@@ -15,20 +16,48 @@ import { Contact } from "./pages/Contact";
 import { BookAppointment } from "./pages/BookAppointment";
 import { NotFound } from "./pages/NotFound";
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
-  }, [pathname]);
-  return null;
-}
-
 function AnalyticsTracker() {
   const { pathname } = useLocation();
   useEffect(() => {
     void trackPageView(pathname);
   }, [pathname]);
   return null;
+}
+
+const pageTransition = {
+  initial: { opacity: 0, scale: 0.98 },
+  animate: { opacity: 1, scale: 1 },
+  exit: { opacity: 0, scale: 0.98 },
+  transition: { duration: 0.45, ease: [0.4, 0, 0.2, 1] as const },
+};
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait" initial={false} onExitComplete={() => window.scrollTo({ top: 0 })}>
+      <motion.div
+        key={location.pathname}
+        initial={pageTransition.initial}
+        animate={pageTransition.animate}
+        exit={pageTransition.exit}
+        transition={pageTransition.transition}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/services" element={<ServicesIndex />} />
+          <Route path="/services/:slug" element={<ServiceDetail />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/team/:slug" element={<TeamMember />} />
+          <Route path="/insights" element={<Insights />} />
+          <Route path="/insights/:slug" element={<InsightArticle />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/book" element={<BookAppointment />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
 }
 
 function Layout() {
@@ -42,18 +71,7 @@ function Layout() {
       </a>
       <Header />
       <main id="main-content" className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<ServicesIndex />} />
-          <Route path="/services/:slug" element={<ServiceDetail />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/team/:slug" element={<TeamMember />} />
-          <Route path="/insights" element={<Insights />} />
-          <Route path="/insights/:slug" element={<InsightArticle />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/book" element={<BookAppointment />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AnimatedRoutes />
       </main>
       <Footer />
       <StickyBookButton />
@@ -64,7 +82,6 @@ function Layout() {
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
       <AnalyticsTracker />
       <Layout />
     </BrowserRouter>
