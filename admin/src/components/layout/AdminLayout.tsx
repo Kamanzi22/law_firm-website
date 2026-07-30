@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
+  BarChart3,
   Building2,
   Briefcase,
   Users,
@@ -20,6 +21,7 @@ import { useAuth } from "../../lib/AuthProvider";
 
 const navItems = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard, end: true },
+  { to: "/activity", label: "Activity", icon: BarChart3 },
   { to: "/firm-profile", label: "Firm Profile", icon: Building2 },
   { to: "/services", label: "Services", icon: Briefcase },
   { to: "/team", label: "Team", icon: Users },

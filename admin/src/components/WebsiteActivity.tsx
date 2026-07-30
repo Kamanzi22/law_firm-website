@@ -1,8 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { Loader2, Users } from "lucide-react";
+import { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import { Loader2, Users, ArrowRight, Trash2 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 import { QueryError } from "./ui/QueryError";
-import { useState } from "react";
 
 type Period = "day" | "week" | "month" | "year";
 
@@ -30,23 +31,26 @@ async function countSince(since: Date): Promise<number> {
   return count ?? 0;
 }
 
-async function fetchActivity(period: Period) {
-  const [selected, month, year] = await Promise.all([
-    countSince(periodStart(period)),
-    countSince(periodStart("month")),
-    countSince(periodStart("year")),
-  ]);
-  return { selected, month, year };
-}
-
 export function WebsiteActivity() {
+  const queryClient = useQueryClient();
   const [period, setPeriod] = useState<Period>("day");
-  const { data, isLoading, isError, error } = useQuery({
+  const [isResetting, setIsResetting] = useState(false);
+  const { data: selected, isLoading, isError, error } = useQuery({
     queryKey: ["admin-website-activity", period],
-    queryFn: () => fetchActivity(period),
+    queryFn: () => countSince(periodStart(period)),
   });
 
   const selectedLabel = PERIODS.find((p) => p.value === period)?.label ?? "";
+
+  async function handleReset() {
+    if (!confirm("Delete all recorded website visits? This can't be undone.")) return;
+    setIsResetting(true);
+    // page_views cascades on delete via its FK to site_sessions, so this clears both tables.
+    await supabase!.from("site_sessions").delete().not("id", "is", null);
+    setIsResetting(false);
+    queryClient.invalidateQueries({ queryKey: ["admin-website-activity"] });
+    queryClient.invalidateQueries({ queryKey: ["admin-activity-detail"] });
+  }
 
   return (
     <div className="rounded-sm border border-brand-gray-200 bg-white p-5">
@@ -73,28 +77,39 @@ export function WebsiteActivity() {
       )}
 
       {!isError && (
-        <>
-          <div className="mt-5 flex items-center gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-brand-gold/10 text-brand-gold-dark">
-              <Users className="h-6 w-6" aria-hidden="true" />
-            </div>
-            <div>
-              {isLoading ? (
-                <Loader2 className="h-6 w-6 animate-spin text-brand-gray-400" aria-hidden="true" />
-              ) : (
-                <p className="font-display text-4xl font-semibold text-brand-navy">{data?.selected}</p>
-              )}
-              <p className="text-sm text-brand-gray-500">Visits — {selectedLabel}</p>
-            </div>
+        <div className="mt-5 flex items-center gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-sm bg-brand-gold/10 text-brand-gold-dark">
+            <Users className="h-6 w-6" aria-hidden="true" />
           </div>
-
-          {!isLoading && data && (
-            <p className="mt-4 border-t border-brand-gray-100 pt-3 text-xs text-brand-gray-400">
-              {data.month} visits in the last 30 days · {data.year} in the last 12 months
-            </p>
-          )}
-        </>
+          <div>
+            {isLoading ? (
+              <Loader2 className="h-6 w-6 animate-spin text-brand-gray-400" aria-hidden="true" />
+            ) : (
+              <p className="font-display text-4xl font-semibold text-brand-navy">{selected}</p>
+            )}
+            <p className="text-sm text-brand-gray-500">Visits — {selectedLabel}</p>
+          </div>
+        </div>
       )}
+
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-brand-gray-100 pt-4">
+        <Link
+          to="/activity"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-gold-dark hover:text-brand-navy"
+        >
+          View detailed summary
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+        <button
+          type="button"
+          onClick={handleReset}
+          disabled={isResetting}
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-red-600 hover:text-red-700 disabled:opacity-60"
+        >
+          <Trash2 className="h-4 w-4" aria-hidden="true" />
+          {isResetting ? "Resetting…" : "Reset data"}
+        </button>
+      </div>
     </div>
   );
 }

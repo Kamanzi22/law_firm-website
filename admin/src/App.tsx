@@ -4,6 +4,7 @@ import { ProtectedRoute } from "./components/layout/ProtectedRoute";
 import { Login } from "./pages/Login";
 import { ResetPassword } from "./pages/ResetPassword";
 import { Dashboard } from "./pages/Dashboard";
+import { ActivityDetail } from "./pages/ActivityDetail";
 import { FirmProfileEditor } from "./pages/FirmProfileEditor";
 import { ServicesManager } from "./pages/ServicesManager";
 import { TeamManager } from "./pages/TeamManager";
@@ -23,6 +24,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<AdminLayout />}>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/activity" element={<ActivityDetail />} />
             <Route path="/firm-profile" element={<FirmProfileEditor />} />
             <Route path="/services" element={<ServicesManager />} />
             <Route path="/team" element={<TeamManager />} />

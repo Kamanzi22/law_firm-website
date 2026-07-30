@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 import { QueryError } from "../components/ui/QueryError";
 
@@ -14,12 +14,15 @@ interface MessageRow {
   created_at: string;
 }
 
-const STATUS_OPTIONS: MessageRow["status"][] = ["new", "read", "replied"];
+const STATUS_OPTIONS: { value: MessageRow["status"]; label: string }[] = [
+  { value: "new", label: "Unread" },
+  { value: "read", label: "Read" },
+];
 
 const statusColors: Record<MessageRow["status"], string> = {
   new: "bg-amber-100 text-amber-700",
-  read: "bg-blue-100 text-blue-700",
-  replied: "bg-green-100 text-green-700",
+  read: "bg-brand-gray-100 text-brand-gray-600",
+  replied: "bg-brand-gray-100 text-brand-gray-600",
 };
 
 async function fetchMessages(): Promise<MessageRow[]> {
@@ -32,10 +35,20 @@ export function MessagesInbox() {
   const queryClient = useQueryClient();
   const { data: messages, isLoading, isError, error } = useQuery({ queryKey: ["admin-messages"], queryFn: fetchMessages });
 
-  async function updateStatus(id: string, status: MessageRow["status"]) {
-    await supabase!.from("contact_messages").update({ status }).eq("id", id);
+  function refresh() {
     queryClient.invalidateQueries({ queryKey: ["admin-messages"] });
     queryClient.invalidateQueries({ queryKey: ["dashboard-counts"] });
+  }
+
+  async function updateStatus(id: string, status: MessageRow["status"]) {
+    await supabase!.from("contact_messages").update({ status }).eq("id", id);
+    refresh();
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm("Delete this message? This can't be undone.")) return;
+    await supabase!.from("contact_messages").delete().eq("id", id);
+    refresh();
   }
 
   if (isError) {
@@ -66,17 +79,27 @@ export function MessagesInbox() {
                   {msg.name} · {msg.email} · {msg.phone} · {new Date(msg.created_at).toLocaleString()}
                 </p>
               </div>
-              <select
-                value={msg.status}
-                onChange={(e) => updateStatus(msg.id, e.target.value as MessageRow["status"])}
-                className={`rounded-sm px-2.5 py-1 text-xs font-semibold ${statusColors[msg.status]}`}
-              >
-                {STATUS_OPTIONS.map((status) => (
-                  <option key={status} value={status}>
-                    {status}
-                  </option>
-                ))}
-              </select>
+              <div className="flex items-center gap-2">
+                <select
+                  value={msg.status === "replied" ? "read" : msg.status}
+                  onChange={(e) => updateStatus(msg.id, e.target.value as MessageRow["status"])}
+                  className={`rounded-sm px-2.5 py-1 text-xs font-semibold ${statusColors[msg.status]}`}
+                >
+                  {STATUS_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(msg.id)}
+                  aria-label="Delete message"
+                  className="rounded-sm p-1.5 text-brand-gray-400 hover:bg-red-50 hover:text-red-600"
+                >
+                  <Trash2 className="h-4 w-4" aria-hidden="true" />
+                </button>
+              </div>
             </div>
             <p className="mt-3 rounded-sm bg-brand-gray-50 p-3 text-sm text-brand-gray-600">{msg.message}</p>
           </div>
