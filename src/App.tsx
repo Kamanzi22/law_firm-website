@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { trackPageView } from "./lib/analytics";
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
-import { WhatsAppFloat } from "./components/layout/WhatsAppFloat";
 import { StickyBookButton } from "./components/layout/StickyBookButton";
 import { Home } from "./pages/Home";
 import { ServicesIndex } from "./pages/ServicesIndex";
@@ -57,7 +56,6 @@ function Layout() {
         </Routes>
       </main>
       <Footer />
-      <WhatsAppFloat />
       <StickyBookButton />
     </div>
   );

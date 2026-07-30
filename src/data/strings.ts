@@ -173,10 +173,6 @@ export const strings = {
     quickLinks: "Quick Links",
     getInTouch: "Get in Touch",
   },
-  whatsapp: {
-    label: "Chat with us on WhatsApp",
-    defaultMessage: "Hello, I'd like to enquire about a legal matter.",
-  },
   common: {
     loading: "Loading…",
     notFoundTitle: "Page Not Found",

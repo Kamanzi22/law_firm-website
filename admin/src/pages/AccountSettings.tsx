@@ -10,12 +10,10 @@ export function AccountSettings() {
   const currentEmail = session?.user.email ?? "";
   const currentName = (session?.user.user_metadata?.name as string | undefined) ?? "";
   const currentPhone = (session?.user.user_metadata?.phone as string | undefined) ?? "";
-  const currentWhatsapp = (session?.user.user_metadata?.whatsapp as string | undefined) ?? "";
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [name, setName] = useState(currentName);
   const [phone, setPhone] = useState(currentPhone);
-  const [whatsapp, setWhatsapp] = useState(currentWhatsapp);
   const [newEmail, setNewEmail] = useState(currentEmail);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -35,11 +33,10 @@ export function AccountSettings() {
 
     const nameChanged = name.trim() !== currentName;
     const phoneChanged = phone.trim() !== currentPhone;
-    const whatsappChanged = whatsapp.trim() !== currentWhatsapp;
     const emailChanged = newEmail.trim() !== currentEmail;
     const passwordChanged = newPassword.length > 0;
 
-    if (!nameChanged && !phoneChanged && !whatsappChanged && !emailChanged && !passwordChanged) {
+    if (!nameChanged && !phoneChanged && !emailChanged && !passwordChanged) {
       setError("Change a field below to update your profile.");
       return;
     }
@@ -68,14 +65,12 @@ export function AccountSettings() {
       return;
     }
 
-    const metadataChanged = nameChanged || phoneChanged || whatsappChanged;
+    const metadataChanged = nameChanged || phoneChanged;
 
     const { error: updateError } = await supabase!.auth.updateUser({
       ...(emailChanged ? { email: newEmail.trim() } : {}),
       ...(passwordChanged ? { password: newPassword } : {}),
-      ...(metadataChanged
-        ? { data: { name: name.trim(), phone: phone.trim(), whatsapp: whatsapp.trim() } }
-        : {}),
+      ...(metadataChanged ? { data: { name: name.trim(), phone: phone.trim() } } : {}),
     });
 
     setIsSubmitting(false);
@@ -99,7 +94,7 @@ export function AccountSettings() {
   return (
     <div className="max-w-lg">
       <h1 className="font-display text-2xl font-semibold text-brand-navy">Profile</h1>
-      <p className="mt-1 text-brand-gray-500">Update your name, contact numbers, login email or password.</p>
+      <p className="mt-1 text-brand-gray-500">Update your name, phone number, login email or password.</p>
 
       <form className="mt-6 space-y-5 rounded-sm border border-brand-gray-200 bg-white p-6" onSubmit={handleSubmit} noValidate>
         <TextField
@@ -110,27 +105,15 @@ export function AccountSettings() {
           onChange={(e) => setName(e.target.value)}
         />
 
-        <div className="grid gap-5 sm:grid-cols-2">
-          <TextField
-            id="profile-phone"
-            label="Phone (calling & texting)"
-            type="tel"
-            autoComplete="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="+250 7XX XXX XXX"
-          />
-          <TextField
-            id="profile-whatsapp"
-            label="WhatsApp number"
-            type="tel"
-            autoComplete="tel"
-            value={whatsapp}
-            onChange={(e) => setWhatsapp(e.target.value)}
-            placeholder="+250 7XX XXX XXX"
-            hint="Can be the same as above, or a different number."
-          />
-        </div>
+        <TextField
+          id="profile-phone"
+          label="Phone (calling & texting)"
+          type="tel"
+          autoComplete="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="+250 7XX XXX XXX"
+        />
 
         <TextField
           id="new-email"
