@@ -12,7 +12,7 @@ export function About() {
     <>
       <Seo title={strings.about.pageHeading} description={firm.positioning} path="/about" />
 
-      <section className="bg-brand-navy py-20">
+      <section className="bg-brand-teal py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading title={strings.about.pageHeading} subtitle={firm.positioning} light />
         </div>
@@ -70,7 +70,7 @@ export function About() {
           <ol className="mt-12 space-y-8 border-l border-brand-gray-300 pl-8">
             {strings.timeline.map((item, index) => (
               <Reveal key={item.year} as="li" delayMs={index * 50} className="relative">
-                <span className="absolute -left-[calc(2rem+5px)] top-1 h-2.5 w-2.5 rounded-full bg-brand-gold" />
+                <span className="absolute -left-[calc(2rem+5px)] top-1 h-2.5 w-2.5 rounded-full bg-brand-gold-dark" />
                 <p className="font-display text-lg font-semibold text-brand-navy">{item.year}</p>
                 <p className="mt-1 text-sm leading-relaxed text-brand-gray-600">{item.event}</p>
               </Reveal>

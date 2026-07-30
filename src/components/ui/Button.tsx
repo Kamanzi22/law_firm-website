@@ -1,16 +1,20 @@
 import type { ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
 import { Link } from "react-router-dom";
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "secondary" | "ghost" | "invert";
 type Size = "md" | "lg";
 
 const base =
   "inline-flex items-center justify-center gap-2 font-sans font-semibold transition-colors duration-200 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-60 disabled:cursor-not-allowed";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-brand-gold text-brand-navy hover:bg-brand-gold-light",
-  secondary: "bg-transparent text-brand-cream border border-brand-cream/40 hover:border-brand-cream hover:bg-white/5",
+  primary: "bg-brand-teal text-brand-navy hover:bg-brand-teal-dark",
+  secondary: "bg-transparent text-brand-navy border border-brand-navy/30 hover:border-brand-navy hover:bg-brand-navy/5",
   ghost: "bg-transparent text-brand-navy border border-brand-navy/20 hover:bg-brand-navy/5",
+  // Solid dark button for the rare case a strong CTA sits directly on a
+  // teal-background section (teal-on-teal or green-on-teal both fail
+  // contrast, so this inverts to a dark fill instead).
+  invert: "bg-brand-navy text-brand-cream hover:bg-brand-navy-light",
 };
 
 const sizes: Record<Size, string> = {

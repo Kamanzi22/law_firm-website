@@ -24,7 +24,7 @@ export function Step1Matter({ value, onChange, error }: Step1Props) {
             <label
               key={service.slug}
               className={`flex cursor-pointer items-start gap-4 rounded-sm border-2 p-5 transition-colors ${
-                isSelected ? "border-brand-gold bg-brand-gold/5" : "border-brand-gray-200 hover:border-brand-gray-300"
+                isSelected ? "border-brand-gold-dark bg-brand-gold/5" : "border-brand-gray-200 hover:border-brand-gray-300"
               }`}
             >
               <input
@@ -37,7 +37,7 @@ export function Step1Matter({ value, onChange, error }: Step1Props) {
               />
               <div
                 className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-sm ${
-                  isSelected ? "bg-brand-gold text-brand-navy" : "bg-brand-navy/5 text-brand-navy"
+                  isSelected ? "bg-brand-gold-dark text-white" : "bg-brand-navy/5 text-brand-navy"
                 }`}
               >
                 <ServiceIcon icon={service.icon} className="h-5 w-5" />

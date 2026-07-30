@@ -18,7 +18,7 @@ export function ServicesIndex() {
         path="/services"
       />
 
-      <section className="bg-brand-navy py-20">
+      <section className="bg-brand-teal py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading title={strings.services.pageHeading} subtitle={strings.services.pageSubheading} light />
         </div>

@@ -55,7 +55,7 @@ export function WebsiteActivity() {
         <select
           value={period}
           onChange={(e) => setPeriod(e.target.value as Period)}
-          className="rounded-sm border border-brand-gray-300 bg-white px-3 py-1.5 text-sm text-brand-navy focus-visible:border-brand-gold"
+          className="rounded-sm border border-brand-gray-300 bg-white px-3 py-1.5 text-sm text-brand-navy focus-visible:border-brand-gold-dark"
           aria-label="Time period"
         >
           {PERIODS.map((p) => (

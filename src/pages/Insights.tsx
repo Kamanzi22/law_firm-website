@@ -13,7 +13,7 @@ export function Insights() {
     <>
       <Seo title={strings.insightsPage.pageHeading} description={strings.insightsPage.pageSubheading} path="/insights" />
 
-      <section className="bg-brand-navy py-20">
+      <section className="bg-brand-teal py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title={strings.insightsPage.pageHeading}

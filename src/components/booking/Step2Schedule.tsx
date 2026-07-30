@@ -50,7 +50,7 @@ export function Step2Schedule({
               <label
                 key={value}
                 className={`flex cursor-pointer flex-col items-center gap-2 rounded-sm border-2 p-5 text-center transition-colors ${
-                  isSelected ? "border-brand-gold bg-brand-gold/5" : "border-brand-gray-200 hover:border-brand-gray-300"
+                  isSelected ? "border-brand-gold-dark bg-brand-gold/5" : "border-brand-gray-200 hover:border-brand-gray-300"
                 }`}
               >
                 <input
@@ -90,7 +90,7 @@ export function Step2Schedule({
             onChange={(e) => onChangeDate(e.target.value)}
             aria-invalid={Boolean(errors.date)}
             aria-describedby={errors.date ? "booking-date-error" : "booking-date-hint"}
-            className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold"
+            className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold-dark"
           />
           <p id="booking-date-hint" className="mt-1.5 text-xs text-brand-gray-400">
             {describeBusinessDays(settings.businessDays)}
@@ -112,7 +112,7 @@ export function Step2Schedule({
             onChange={(e) => onChangeTime(e.target.value)}
             aria-invalid={Boolean(errors.time)}
             aria-describedby={errors.time ? "booking-time-error" : undefined}
-            className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold"
+            className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold-dark"
           >
             <option value="">Select a time</option>
             {timeSlots.map((slot) => (

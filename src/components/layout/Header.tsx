@@ -34,21 +34,21 @@ export function Header() {
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     `text-sm font-medium transition-colors ${
-      isActive ? "text-brand-gold" : "text-brand-cream/90 hover:text-brand-gold"
+      isActive ? "text-brand-navy underline underline-offset-4" : "text-brand-navy/70 hover:text-brand-navy"
     }`;
 
   return (
     <header
       className={`sticky top-0 z-40 transition-colors duration-300 ${
-        isScrolled ? "bg-brand-navy shadow-md" : "bg-brand-navy/95 backdrop-blur"
+        isScrolled ? "bg-brand-teal shadow-md" : "bg-brand-teal/95 backdrop-blur"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <NavLink to="/" className="flex items-center gap-2 text-brand-cream" aria-label={`${firm.name} home`}>
+        <NavLink to="/" className="flex items-center gap-2 text-brand-navy" aria-label={`${firm.name} home`}>
           {firm.logoUrl ? (
             <img src={firm.logoUrl} alt="" className="h-7 w-auto" aria-hidden="true" />
           ) : (
-            <Scale className="h-6 w-6 text-brand-gold" aria-hidden="true" />
+            <Scale className="h-6 w-6 text-brand-navy" aria-hidden="true" />
           )}
           <span className="font-display text-lg font-semibold leading-tight sm:text-xl">
             {firm.shortName}
@@ -64,14 +64,14 @@ export function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <Button to="/book" size="md">
+          <Button to="/book" size="md" variant="secondary">
             {strings.nav.bookConsultation}
           </Button>
         </div>
 
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-sm p-2 text-brand-cream lg:hidden"
+          className="inline-flex items-center justify-center rounded-sm p-2 text-brand-navy lg:hidden"
           aria-label={strings.nav.menu}
           aria-expanded={isDrawerOpen}
           aria-controls="mobile-drawer"
@@ -86,7 +86,7 @@ export function Header() {
           <button
             type="button"
             aria-label={strings.nav.closeMenu}
-            className="absolute inset-0 bg-brand-navy/80"
+            className="absolute inset-0 bg-brand-navy/50"
             onClick={() => setIsDrawerOpen(false)}
           />
           <div
@@ -94,14 +94,14 @@ export function Header() {
             role="dialog"
             aria-modal="true"
             aria-label={strings.nav.menu}
-            className="absolute left-0 top-0 flex h-full w-full max-w-xs flex-col gap-8 bg-brand-navy px-6 py-6 shadow-xl"
+            className="absolute left-0 top-0 flex h-full w-full max-w-xs flex-col gap-8 bg-brand-teal px-6 py-6 shadow-xl"
           >
             <div className="flex items-center justify-between">
-              <span className="font-display text-lg font-semibold text-brand-cream">{firm.shortName}</span>
+              <span className="font-display text-lg font-semibold text-brand-navy">{firm.shortName}</span>
               <button
                 type="button"
                 aria-label={strings.nav.closeMenu}
-                className="rounded-sm p-2 text-brand-cream"
+                className="rounded-sm p-2 text-brand-navy"
                 onClick={() => setIsDrawerOpen(false)}
               >
                 <X className="h-6 w-6" aria-hidden="true" />
@@ -115,7 +115,7 @@ export function Header() {
                   to={item.to}
                   end={item.to === "/"}
                   className={({ isActive }) =>
-                    `font-display text-2xl font-medium ${isActive ? "text-brand-gold" : "text-brand-cream"}`
+                    `font-display text-2xl font-medium text-brand-navy ${isActive ? "underline underline-offset-4" : ""}`
                   }
                   onClick={() => setIsDrawerOpen(false)}
                 >
@@ -124,7 +124,13 @@ export function Header() {
               ))}
             </nav>
 
-            <Button to="/book" size="lg" className="mt-auto w-full" onClick={() => setIsDrawerOpen(false)}>
+            <Button
+              to="/book"
+              size="lg"
+              variant="secondary"
+              className="mt-auto w-full"
+              onClick={() => setIsDrawerOpen(false)}
+            >
               {strings.nav.bookConsultation}
             </Button>
           </div>

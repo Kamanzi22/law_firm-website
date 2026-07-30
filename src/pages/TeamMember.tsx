@@ -17,11 +17,11 @@ export function TeamMember() {
     <>
       <Seo title={member.name} description={member.bio} path={`/team/${member.slug}`} />
 
-      <section className="bg-brand-navy py-16">
+      <section className="bg-brand-teal py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Link
             to="/about"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-gray-300 hover:text-brand-gold"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-navy/70 hover:text-brand-navy"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             {strings.about.teamHeading}
@@ -59,7 +59,7 @@ export function TeamMember() {
                     <Link
                       key={slug}
                       to={`/services/${slug}`}
-                      className="rounded-sm border border-brand-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-brand-navy hover:border-brand-gold"
+                      className="rounded-sm border border-brand-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-brand-navy hover:border-brand-gold-dark"
                     >
                       {service.name}
                     </Link>
@@ -70,7 +70,7 @@ export function TeamMember() {
 
             <div className="mt-8">
               <h2 className="flex items-center gap-2 font-display text-lg font-semibold text-brand-navy">
-                <GraduationCap className="h-5 w-5 text-brand-gold" aria-hidden="true" />
+                <GraduationCap className="h-5 w-5 text-brand-gold-dark" aria-hidden="true" />
                 Education
               </h2>
               <ul className="mt-3 space-y-1.5 text-sm text-brand-gray-600">

@@ -117,12 +117,12 @@ export function BookAppointment() {
     <>
       <Seo title={strings.booking.pageHeading} description={strings.booking.pageSubheading} path="/book" />
 
-      <section className="bg-brand-navy py-14">
+      <section className="bg-brand-teal py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <h1 className="font-display text-3xl font-semibold text-brand-cream sm:text-4xl">
+          <h1 className="font-display text-3xl font-semibold text-brand-navy sm:text-4xl">
             {strings.booking.pageHeading}
           </h1>
-          <p className="mt-3 text-brand-gray-300">{strings.booking.pageSubheading}</p>
+          <p className="mt-3 text-brand-navy/80">{strings.booking.pageSubheading}</p>
         </div>
       </section>
 

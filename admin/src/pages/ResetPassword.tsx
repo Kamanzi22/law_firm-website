@@ -75,7 +75,7 @@ export function ResetPassword() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-brand-navy px-4">
+    <div className="flex min-h-screen items-center justify-center bg-brand-teal px-4">
       <div className="w-full max-w-sm rounded-sm bg-white p-8 shadow-xl">
         <div className="flex items-center gap-2 text-brand-navy">
           <Scale className="h-6 w-6 text-brand-gold-dark" aria-hidden="true" />
@@ -142,7 +142,7 @@ export function ResetPassword() {
             </div>
             <Link
               to="/"
-              className="mt-4 inline-block rounded-sm bg-brand-gold px-4 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-gold-light"
+              className="mt-4 inline-block rounded-sm bg-brand-teal px-4 py-2 text-sm font-semibold text-brand-navy hover:bg-brand-teal-dark"
             >
               Continue to dashboard
             </Link>

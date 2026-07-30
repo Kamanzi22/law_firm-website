@@ -1,6 +1,7 @@
 import { Seo } from "../components/seo/Seo";
 import { Hero } from "../components/home/Hero";
 import { TrustBar } from "../components/home/TrustBar";
+import { SwooshDivider } from "../components/ui/SwooshDivider";
 import { ServiceCards } from "../components/home/ServiceCards";
 import { WhyUs } from "../components/home/WhyUs";
 import { Testimonials } from "../components/home/Testimonials";
@@ -20,6 +21,7 @@ export function Home() {
         includeLocalBusinessSchema
       />
       <Hero />
+      <SwooshDivider />
       <TrustBar />
       <ServiceCards />
       <WhyUs />

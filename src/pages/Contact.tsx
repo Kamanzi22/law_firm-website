@@ -58,7 +58,7 @@ export function Contact() {
     <>
       <Seo title={strings.contact.pageHeading} description={strings.contact.pageSubheading} path="/contact" />
 
-      <section className="bg-brand-navy py-20">
+      <section className="bg-brand-teal py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading title={strings.contact.pageHeading} subtitle={strings.contact.pageSubheading} light />
         </div>
@@ -70,7 +70,7 @@ export function Contact() {
             <h2 className="font-display text-2xl font-semibold text-brand-navy">{strings.contact.officeHeading}</h2>
             <ul className="mt-6 space-y-4 text-brand-gray-600">
               <li className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand-gold" aria-hidden="true" />
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand-gold-dark" aria-hidden="true" />
                 <span>
                   {firm.address.line1}, {firm.address.line2}
                   <br />
@@ -78,17 +78,17 @@ export function Contact() {
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 shrink-0 text-brand-gold" aria-hidden="true" />
+                <Phone className="h-5 w-5 shrink-0 text-brand-gold-dark" aria-hidden="true" />
                 <a href={`tel:${firm.phoneHref}`} className="hover:text-brand-gold-dark">{firm.phone}</a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 shrink-0 text-brand-gold" aria-hidden="true" />
+                <Mail className="h-5 w-5 shrink-0 text-brand-gold-dark" aria-hidden="true" />
                 <a href={`mailto:${firm.email}`} className="hover:text-brand-gold-dark">{firm.email}</a>
               </li>
             </ul>
 
             <h2 className="mt-10 flex items-center gap-2 font-display text-2xl font-semibold text-brand-navy">
-              <Clock className="h-5 w-5 text-brand-gold" aria-hidden="true" />
+              <Clock className="h-5 w-5 text-brand-gold-dark" aria-hidden="true" />
               {strings.contact.hoursHeading}
             </h2>
             <ul className="mt-4 space-y-2 text-brand-gray-600">
@@ -133,7 +133,7 @@ export function Contact() {
                     onChange={(e) => updateField("name", e.target.value)}
                     aria-invalid={Boolean(errors.name)}
                     aria-describedby={errors.name ? "contact-name-error" : undefined}
-                    className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold"
+                    className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold-dark"
                   />
                   {errors.name && (
                     <p id="contact-name-error" className="mt-1.5 text-sm text-red-600">
@@ -154,7 +154,7 @@ export function Contact() {
                       onChange={(e) => updateField("email", e.target.value)}
                       aria-invalid={Boolean(errors.email)}
                       aria-describedby={errors.email ? "contact-email-error" : undefined}
-                      className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold"
+                      className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold-dark"
                     />
                     {errors.email && (
                       <p id="contact-email-error" className="mt-1.5 text-sm text-red-600">
@@ -173,7 +173,7 @@ export function Contact() {
                       onChange={(e) => updateField("phone", e.target.value)}
                       aria-invalid={Boolean(errors.phone)}
                       aria-describedby={errors.phone ? "contact-phone-error" : undefined}
-                      className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold"
+                      className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold-dark"
                     />
                     {errors.phone && (
                       <p id="contact-phone-error" className="mt-1.5 text-sm text-red-600">
@@ -194,7 +194,7 @@ export function Contact() {
                     onChange={(e) => updateField("subject", e.target.value)}
                     aria-invalid={Boolean(errors.subject)}
                     aria-describedby={errors.subject ? "contact-subject-error" : undefined}
-                    className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold"
+                    className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold-dark"
                   />
                   {errors.subject && (
                     <p id="contact-subject-error" className="mt-1.5 text-sm text-red-600">
@@ -214,7 +214,7 @@ export function Contact() {
                     onChange={(e) => updateField("message", e.target.value)}
                     aria-invalid={Boolean(errors.message)}
                     aria-describedby={errors.message ? "contact-message-error" : undefined}
-                    className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold"
+                    className="mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-4 py-2.5 text-brand-navy focus-visible:border-brand-gold-dark"
                   />
                   {errors.message && (
                     <p id="contact-message-error" className="mt-1.5 text-sm text-red-600">

@@ -7,7 +7,7 @@ const icons = [ShieldCheck, Clock, ReceiptText, UserCheck];
 
 export function WhyUs() {
   return (
-    <section className="bg-brand-navy py-24">
+    <section className="bg-brand-teal py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <SectionHeading title={strings.home.whyUsHeading} light align="left" />
@@ -18,9 +18,9 @@ export function WhyUs() {
             const Icon = icons[index % icons.length];
             return (
               <Reveal key={item.title} delayMs={index * 60}>
-                <Icon className="h-8 w-8 text-brand-gold" aria-hidden="true" />
-                <h3 className="mt-4 font-display text-lg font-semibold text-brand-cream">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-brand-gray-300">{item.description}</p>
+                <Icon className="h-8 w-8 text-brand-navy" aria-hidden="true" />
+                <h3 className="mt-4 font-display text-lg font-semibold text-brand-navy">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-brand-navy/75">{item.description}</p>
               </Reveal>
             );
           })}

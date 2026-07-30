@@ -18,7 +18,7 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <Reveal key={testimonial.author} delayMs={index * 60}>
               <figure className="flex h-full flex-col rounded-sm border border-brand-gray-200 bg-brand-cream p-7">
-                <Quote className="h-7 w-7 text-brand-gold" aria-hidden="true" />
+                <Quote className="h-7 w-7 text-brand-gold-dark" aria-hidden="true" />
                 <blockquote className="mt-4 flex-1 text-base leading-relaxed text-brand-gray-600">
                   “{testimonial.quote}”
                 </blockquote>

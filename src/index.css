@@ -3,16 +3,30 @@
 /*
   Design tokens. Change values here to rebrand the entire site
   (colors, fonts, radii, container width) from one place.
+
+  Brand: ICA — Inner City Attorneys. Teal is the dominant color (header,
+  hero, primary buttons); green is a secondary accent only (links, hover,
+  icons); body text stays near-black for contrast, since neither teal nor
+  green pass AA contrast as text-on-white or as a background under light
+  text — see the "ink" role below.
 */
 @theme {
-  /* Brand palette: "modern authority" — deep navy base, warm gold accent */
-  --color-brand-navy: #0b1d33;
-  --color-brand-navy-light: #142c4a;
+  --color-brand-teal: #28c9e2;
+  --color-brand-teal-dark: #1fa6bc;
+  --color-brand-teal-light: #6fdcec;
+
+  --color-brand-gold: #93b849; /* secondary accent (green) — decorative/icon use, not small text (fails AA on white) */
+  --color-brand-gold-light: #a9c86e; /* decorative tints/hovers only, not text */
+  --color-brand-gold-dark: #5c7a32; /* darkened from the logo's green so it passes 4.5:1 as link/text color on white */
+
+  /* "navy" now holds the dark ink/heading color, not a background — every
+     bg-brand-navy usage below is a large section background and has been
+     migrated to bg-brand-teal (which needs dark text, not light). */
+  --color-brand-navy: #1a1a1a;
+  --color-brand-navy-light: #333333;
   --color-brand-charcoal: #16181d;
-  --color-brand-gold: #b8894d;
-  --color-brand-gold-light: #d4ab77;
-  --color-brand-gold-dark: #96703c;
-  --color-brand-cream: #f7f4ee;
+
+  --color-brand-cream: #fafaf7;
   --color-brand-ink: #1a1a1a;
 
   --color-brand-gray-50: #f8f8f7;
@@ -51,7 +65,7 @@
 
   /* Visible focus states everywhere, for keyboard accessibility */
   :focus-visible {
-    outline: 2px solid var(--color-brand-gold);
+    outline: 2px solid var(--color-brand-gold-dark);
     outline-offset: 3px;
   }
 

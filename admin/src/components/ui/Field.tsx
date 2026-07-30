@@ -22,7 +22,7 @@ function FieldWrapper({ label, htmlFor, hint, children }: FieldWrapperProps) {
 }
 
 const inputClass =
-  "mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-3 py-2 text-sm text-brand-ink focus-visible:border-brand-gold";
+  "mt-1.5 w-full rounded-sm border border-brand-gray-300 bg-white px-3 py-2 text-sm text-brand-ink focus-visible:border-brand-gold-dark";
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -67,7 +67,7 @@ export function PasswordField({ label, hint, id, className = "", ...rest }: Pass
           autoCapitalize="off"
           autoCorrect="off"
           spellCheck={false}
-          className={`w-full rounded-sm border border-brand-gray-300 bg-white px-3 py-2 pr-10 text-sm text-brand-ink focus-visible:border-brand-gold ${className}`}
+          className={`w-full rounded-sm border border-brand-gray-300 bg-white px-3 py-2 pr-10 text-sm text-brand-ink focus-visible:border-brand-gold-dark ${className}`}
           {...rest}
         />
         <button

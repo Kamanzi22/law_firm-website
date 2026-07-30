@@ -22,9 +22,9 @@ export function ProgressBar({ currentStep }: ProgressBarProps) {
                 aria-current={isCurrent ? "step" : undefined}
                 className={`flex h-9 w-9 items-center justify-center rounded-full border-2 font-display text-sm font-semibold transition-colors ${
                   isComplete
-                    ? "border-brand-gold bg-brand-gold text-brand-navy"
+                    ? "border-brand-gold-dark bg-brand-gold-dark text-white"
                     : isCurrent
-                      ? "border-brand-gold text-brand-gold"
+                      ? "border-brand-gold-dark text-brand-gold-dark"
                       : "border-brand-gray-300 text-brand-gray-400"
                 }`}
               >
@@ -39,7 +39,7 @@ export function ProgressBar({ currentStep }: ProgressBarProps) {
               </span>
             </div>
             {stepNumber !== labels.length && (
-              <div className={`mx-2 h-0.5 flex-1 ${isComplete ? "bg-brand-gold" : "bg-brand-gray-200"}`} />
+              <div className={`mx-2 h-0.5 flex-1 ${isComplete ? "bg-brand-gold-dark" : "bg-brand-gray-200"}`} />
             )}
           </li>
         );

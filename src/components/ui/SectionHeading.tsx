@@ -14,17 +14,15 @@ export function SectionHeading({ eyebrow, title, subtitle, align = "left", light
       {eyebrow && (
         <p
           className={`mb-3 text-sm font-semibold uppercase tracking-widest ${
-            light ? "text-brand-gold-light" : "text-brand-gold-dark"
+            light ? "text-brand-navy/70" : "text-brand-gold-dark"
           }`}
         >
           {eyebrow}
         </p>
       )}
-      <h2 className={`text-3xl sm:text-4xl font-display font-semibold ${light ? "text-brand-cream" : "text-brand-navy"}`}>
-        {title}
-      </h2>
+      <h2 className="text-3xl sm:text-4xl font-display font-semibold text-brand-navy">{title}</h2>
       {subtitle && (
-        <p className={`mt-4 text-lg leading-relaxed ${light ? "text-brand-gray-200" : "text-brand-gray-600"}`}>
+        <p className={`mt-4 text-lg leading-relaxed ${light ? "text-brand-navy/80" : "text-brand-gray-600"}`}>
           {subtitle}
         </p>
       )}

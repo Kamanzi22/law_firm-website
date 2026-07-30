@@ -42,7 +42,7 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
           onClick={onNavigate}
           className={({ isActive }) =>
             `flex items-center gap-3 rounded-sm px-3 py-2.5 text-sm font-medium transition-colors ${
-              isActive ? "bg-brand-gold text-brand-navy" : "text-brand-gray-200 hover:bg-white/5"
+              isActive ? "bg-white text-brand-navy shadow-sm" : "text-brand-navy/75 hover:bg-white/40"
             }`
           }
         >
@@ -72,16 +72,16 @@ export function AdminLayout() {
 
   return (
     <div className="flex min-h-screen bg-brand-gray-50">
-      <aside className="hidden w-64 shrink-0 flex-col border-r border-brand-gray-200 bg-brand-navy text-brand-cream lg:flex">
+      <aside className="hidden w-64 shrink-0 flex-col border-r border-brand-gray-200 bg-brand-teal text-brand-navy lg:flex">
         <div className="flex items-center gap-2 px-6 py-5">
-          <Scale className="h-6 w-6 text-brand-gold" aria-hidden="true" />
+          <Scale className="h-6 w-6 text-brand-navy" aria-hidden="true" />
           <span className="font-display text-lg font-semibold">Demo Admin</span>
         </div>
         <NavList />
         <button
           type="button"
           onClick={() => signOut()}
-          className="m-3 flex items-center gap-3 rounded-sm px-3 py-2.5 text-sm font-medium text-brand-gray-200 hover:bg-white/5"
+          className="m-3 flex items-center gap-3 rounded-sm px-3 py-2.5 text-sm font-medium text-brand-navy/75 hover:bg-white/40"
         >
           <LogOut className="h-4 w-4" aria-hidden="true" />
           Log out
@@ -93,24 +93,24 @@ export function AdminLayout() {
           <button
             type="button"
             aria-label="Close menu"
-            className="absolute inset-0 bg-brand-navy/80"
+            className="absolute inset-0 bg-brand-navy/50"
             onClick={() => setIsDrawerOpen(false)}
           />
           <div
             role="dialog"
             aria-modal="true"
             aria-label="Admin navigation"
-            className="absolute left-0 top-0 flex h-full w-72 max-w-[80vw] flex-col bg-brand-navy py-5 shadow-xl"
+            className="absolute left-0 top-0 flex h-full w-72 max-w-[80vw] flex-col bg-brand-teal py-5 shadow-xl"
           >
             <div className="flex items-center justify-between px-6 pb-5">
-              <div className="flex items-center gap-2 text-brand-cream">
-                <Scale className="h-6 w-6 text-brand-gold" aria-hidden="true" />
+              <div className="flex items-center gap-2 text-brand-navy">
+                <Scale className="h-6 w-6 text-brand-navy" aria-hidden="true" />
                 <span className="font-display text-lg font-semibold">Demo Admin</span>
               </div>
               <button
                 type="button"
                 aria-label="Close menu"
-                className="rounded-sm p-1.5 text-brand-cream"
+                className="rounded-sm p-1.5 text-brand-navy"
                 onClick={() => setIsDrawerOpen(false)}
               >
                 <X className="h-5 w-5" aria-hidden="true" />
@@ -122,7 +122,7 @@ export function AdminLayout() {
             <button
               type="button"
               onClick={() => signOut()}
-              className="mx-3 mt-3 flex items-center gap-3 rounded-sm px-3 py-2.5 text-sm font-medium text-brand-gray-200 hover:bg-white/5"
+              className="mx-3 mt-3 flex items-center gap-3 rounded-sm px-3 py-2.5 text-sm font-medium text-brand-navy/75 hover:bg-white/40"
             >
               <LogOut className="h-4 w-4" aria-hidden="true" />
               Log out

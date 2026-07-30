@@ -63,7 +63,7 @@ export function Login() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-brand-navy px-4">
+    <div className="flex min-h-screen items-center justify-center bg-brand-teal px-4">
       <div className="w-full max-w-sm rounded-sm bg-white p-8 shadow-xl">
         <div className="flex items-center gap-2 text-brand-navy">
           <Scale className="h-6 w-6 text-brand-gold-dark" aria-hidden="true" />

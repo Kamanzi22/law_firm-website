@@ -1,15 +1,24 @@
 @import "tailwindcss";
 
 /* Same brand tokens as the client site (law firm website/src/index.css) —
-   keep both in sync if the palette is ever rebranded. */
+   keep both in sync if the palette is ever rebranded.
+   Brand: ICA — Inner City Attorneys. See the client index.css for the
+   full rationale on why "navy" now holds a dark ink value rather than a
+   background color. */
 @theme {
-  --color-brand-navy: #0b1d33;
-  --color-brand-navy-light: #142c4a;
+  --color-brand-teal: #28c9e2;
+  --color-brand-teal-dark: #1fa6bc;
+  --color-brand-teal-light: #6fdcec;
+
+  --color-brand-gold: #93b849;
+  --color-brand-gold-light: #a9c86e;
+  --color-brand-gold-dark: #7a9a3d;
+
+  --color-brand-navy: #1a1a1a;
+  --color-brand-navy-light: #333333;
   --color-brand-charcoal: #16181d;
-  --color-brand-gold: #b8894d;
-  --color-brand-gold-light: #d4ab77;
-  --color-brand-gold-dark: #96703c;
-  --color-brand-cream: #f7f4ee;
+
+  --color-brand-cream: #fafaf7;
   --color-brand-ink: #1a1a1a;
 
   --color-brand-gray-50: #f8f8f7;
@@ -43,7 +52,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-brand-gold);
+    outline: 2px solid var(--color-brand-gold-dark);
     outline-offset: 3px;
   }
 }
