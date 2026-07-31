@@ -6,9 +6,11 @@ import { ServiceIcon } from "../components/ui/ServiceIcon";
 import { Reveal } from "../components/ui/Reveal";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
+import { useScrollAdvance } from "../hooks/useScrollAdvance";
 
 export function ServicesIndex() {
   const { services } = useAppData();
+  useScrollAdvance("/about");
 
   return (
     <>

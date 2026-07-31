@@ -8,9 +8,11 @@ import { Testimonials } from "../components/home/Testimonials";
 import { InsightsPreview } from "../components/home/InsightsPreview";
 import { CtaBand } from "../components/home/CtaBand";
 import { useAppData } from "../lib/DataProvider";
+import { useScrollAdvance } from "../hooks/useScrollAdvance";
 
 export function Home() {
   const { firm } = useAppData();
+  useScrollAdvance("/services");
 
   return (
     <>

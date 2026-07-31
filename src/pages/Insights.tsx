@@ -5,9 +5,11 @@ import { Reveal } from "../components/ui/Reveal";
 import { formatArticleDate } from "../lib/format";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
+import { useScrollAdvance } from "../hooks/useScrollAdvance";
 
 export function Insights() {
   const { articles: insights, getTeamMemberBySlug } = useAppData();
+  useScrollAdvance("/contact");
 
   return (
     <>

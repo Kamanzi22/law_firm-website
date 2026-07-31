@@ -4,9 +4,11 @@ import { SectionHeading } from "../components/ui/SectionHeading";
 import { Reveal } from "../components/ui/Reveal";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
+import { useScrollAdvance } from "../hooks/useScrollAdvance";
 
 export function About() {
   const { firm, team } = useAppData();
+  useScrollAdvance("/insights");
 
   return (
     <>

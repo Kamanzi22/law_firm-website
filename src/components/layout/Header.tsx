@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { NavLink } from "react-router-dom";
 import { Menu, X, Scale } from "lucide-react";
 import { strings } from "../../data/strings";
@@ -81,61 +82,63 @@ export function Header() {
         </button>
       </div>
 
-      {isDrawerOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <button
-            type="button"
-            aria-label={strings.nav.closeMenu}
-            className="absolute inset-0 bg-brand-navy/50"
-            onClick={() => setIsDrawerOpen(false)}
-          />
-          <div
-            id="mobile-drawer"
-            role="dialog"
-            aria-modal="true"
-            aria-label={strings.nav.menu}
-            className="absolute left-0 top-0 flex h-full w-full max-w-xs flex-col gap-8 bg-brand-teal px-6 py-6 shadow-xl"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-display text-lg font-semibold text-white">{firm.shortName}</span>
-              <button
-                type="button"
-                aria-label={strings.nav.closeMenu}
-                className="rounded-sm p-2 text-white"
-                onClick={() => setIsDrawerOpen(false)}
-              >
-                <X className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-
-            <nav className="flex flex-col gap-6" aria-label="Mobile">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.to === "/"}
-                  className={({ isActive }) =>
-                    `font-display text-2xl font-medium text-white ${isActive ? "underline underline-offset-4" : ""}`
-                  }
+      {isDrawerOpen &&
+        createPortal(
+          <div className="lg:hidden">
+            <button
+              type="button"
+              aria-label={strings.nav.closeMenu}
+              className="fixed inset-0 z-[100] bg-brand-navy/60"
+              onClick={() => setIsDrawerOpen(false)}
+            />
+            <div
+              id="mobile-drawer"
+              role="dialog"
+              aria-modal="true"
+              aria-label={strings.nav.menu}
+              className="fixed inset-y-0 right-0 z-[101] flex w-full max-w-xs flex-col gap-8 overflow-y-auto bg-brand-teal px-6 py-6 shadow-xl"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-display text-lg font-semibold text-white">{firm.shortName}</span>
+                <button
+                  type="button"
+                  aria-label={strings.nav.closeMenu}
+                  className="rounded-sm p-2 text-white"
                   onClick={() => setIsDrawerOpen(false)}
                 >
-                  {item.label}
-                </NavLink>
-              ))}
-            </nav>
+                  <X className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
 
-            <Button
-              to="/book"
-              size="lg"
-              variant="secondary"
-              className="mt-auto w-full"
-              onClick={() => setIsDrawerOpen(false)}
-            >
-              {strings.nav.bookConsultation}
-            </Button>
-          </div>
-        </div>
-      )}
+              <nav className="flex flex-col gap-6" aria-label="Mobile">
+                {navItems.map((item) => (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    end={item.to === "/"}
+                    className={({ isActive }) =>
+                      `font-display text-2xl font-medium text-white ${isActive ? "underline underline-offset-4" : ""}`
+                    }
+                    onClick={() => setIsDrawerOpen(false)}
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </nav>
+
+              <Button
+                to="/book"
+                size="lg"
+                variant="secondary"
+                className="mt-auto w-full"
+                onClick={() => setIsDrawerOpen(false)}
+              >
+                {strings.nav.bookConsultation}
+              </Button>
+            </div>
+          </div>,
+          document.body,
+        )}
     </header>
   );
 }
