@@ -31,8 +31,32 @@ const pageTransition = {
   transition: { duration: 0.45, ease: [0.4, 0, 0.2, 1] as const },
 };
 
+const routeElements = (
+  <>
+    <Route path="/" element={<Home />} />
+    <Route path="/services" element={<ServicesIndex />} />
+    <Route path="/services/:slug" element={<ServiceDetail />} />
+    <Route path="/about" element={<About />} />
+    <Route path="/team/:slug" element={<TeamMember />} />
+    <Route path="/insights" element={<Insights />} />
+    <Route path="/insights/:slug" element={<InsightArticle />} />
+    <Route path="/contact" element={<Contact />} />
+    <Route path="/book" element={<BookAppointment />} />
+    <Route path="*" element={<NotFound />} />
+  </>
+);
+
 function AnimatedRoutes() {
   const location = useLocation();
+
+  // NextPageTeaser already played its own scroll-driven fade before calling
+  // navigate() with this flag — skip the click-based crossfade below so the
+  // two transitions don't stack and flash.
+  const skipTransition = Boolean((location.state as { skipTransition?: boolean } | null)?.skipTransition);
+
+  if (skipTransition) {
+    return <Routes location={location}>{routeElements}</Routes>;
+  }
 
   return (
     <AnimatePresence mode="wait" initial={false} onExitComplete={() => window.scrollTo({ top: 0 })}>
@@ -43,18 +67,7 @@ function AnimatedRoutes() {
         exit={pageTransition.exit}
         transition={pageTransition.transition}
       >
-        <Routes location={location}>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<ServicesIndex />} />
-          <Route path="/services/:slug" element={<ServiceDetail />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/team/:slug" element={<TeamMember />} />
-          <Route path="/insights" element={<Insights />} />
-          <Route path="/insights/:slug" element={<InsightArticle />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/book" element={<BookAppointment />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Routes location={location}>{routeElements}</Routes>
       </motion.div>
     </AnimatePresence>
   );

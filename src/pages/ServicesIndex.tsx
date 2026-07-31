@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Seo } from "../components/seo/Seo";
-import { SectionHeading } from "../components/ui/SectionHeading";
 import { ServiceIcon } from "../components/ui/ServiceIcon";
 import { Reveal } from "../components/ui/Reveal";
+import { NextPageTeaser } from "../components/ui/NextPageTeaser";
+import { ServicesHero } from "../components/heroes/ServicesHero";
+import { AboutHero } from "../components/heroes/AboutHero";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
-import { useScrollAdvance } from "../hooks/useScrollAdvance";
 
 export function ServicesIndex() {
   const { services } = useAppData();
-  useScrollAdvance("/about");
 
   return (
     <>
@@ -20,11 +20,7 @@ export function ServicesIndex() {
         path="/services"
       />
 
-      <section className="bg-brand-teal py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading title={strings.services.pageHeading} subtitle={strings.services.pageSubheading} light />
-        </div>
-      </section>
+      <ServicesHero />
 
       <section className="bg-brand-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -52,6 +48,10 @@ export function ServicesIndex() {
           </div>
         </div>
       </section>
+
+      <NextPageTeaser nextPath="/about">
+        <AboutHero />
+      </NextPageTeaser>
     </>
   );
 }

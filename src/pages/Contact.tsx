@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { MapPin, Phone, Mail, Clock, CheckCircle2 } from "lucide-react";
 import { Seo } from "../components/seo/Seo";
-import { SectionHeading } from "../components/ui/SectionHeading";
 import { Button } from "../components/ui/Button";
+import { ContactHero } from "../components/heroes/ContactHero";
 import { strings } from "../data/strings";
 import { isRequired, isValidEmail, isValidPhone } from "../lib/validation";
 import { submitContactMessage } from "../lib/submitContactMessage";
@@ -58,11 +58,7 @@ export function Contact() {
     <>
       <Seo title={strings.contact.pageHeading} description={strings.contact.pageSubheading} path="/contact" />
 
-      <section className="bg-brand-teal py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading title={strings.contact.pageHeading} subtitle={strings.contact.pageSubheading} light />
-        </div>
-      </section>
+      <ContactHero />
 
       <section className="bg-brand-cream py-20">
         <div className="mx-auto grid max-w-7xl gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">

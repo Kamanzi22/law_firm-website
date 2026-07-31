@@ -7,12 +7,12 @@ import { WhyUs } from "../components/home/WhyUs";
 import { Testimonials } from "../components/home/Testimonials";
 import { InsightsPreview } from "../components/home/InsightsPreview";
 import { CtaBand } from "../components/home/CtaBand";
+import { NextPageTeaser } from "../components/ui/NextPageTeaser";
+import { ServicesHero } from "../components/heroes/ServicesHero";
 import { useAppData } from "../lib/DataProvider";
-import { useScrollAdvance } from "../hooks/useScrollAdvance";
 
 export function Home() {
   const { firm } = useAppData();
-  useScrollAdvance("/services");
 
   return (
     <>
@@ -30,6 +30,10 @@ export function Home() {
       <Testimonials />
       <InsightsPreview />
       <CtaBand />
+
+      <NextPageTeaser nextPath="/services">
+        <ServicesHero />
+      </NextPageTeaser>
     </>
   );
 }

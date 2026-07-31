@@ -1,29 +1,21 @@
 import { Link } from "react-router-dom";
 import { Seo } from "../components/seo/Seo";
-import { SectionHeading } from "../components/ui/SectionHeading";
 import { Reveal } from "../components/ui/Reveal";
+import { NextPageTeaser } from "../components/ui/NextPageTeaser";
+import { InsightsHero } from "../components/heroes/InsightsHero";
+import { ContactHero } from "../components/heroes/ContactHero";
 import { formatArticleDate } from "../lib/format";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
-import { useScrollAdvance } from "../hooks/useScrollAdvance";
 
 export function Insights() {
   const { articles: insights, getTeamMemberBySlug } = useAppData();
-  useScrollAdvance("/contact");
 
   return (
     <>
       <Seo title={strings.insightsPage.pageHeading} description={strings.insightsPage.pageSubheading} path="/insights" />
 
-      <section className="bg-brand-teal py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            title={strings.insightsPage.pageHeading}
-            subtitle={strings.insightsPage.pageSubheading}
-            light
-          />
-        </div>
-      </section>
+      <InsightsHero />
 
       <section className="bg-brand-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -57,6 +49,10 @@ export function Insights() {
           </div>
         </div>
       </section>
+
+      <NextPageTeaser nextPath="/contact">
+        <ContactHero />
+      </NextPageTeaser>
     </>
   );
 }

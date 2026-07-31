@@ -2,23 +2,20 @@ import { Link } from "react-router-dom";
 import { Seo } from "../components/seo/Seo";
 import { SectionHeading } from "../components/ui/SectionHeading";
 import { Reveal } from "../components/ui/Reveal";
+import { NextPageTeaser } from "../components/ui/NextPageTeaser";
+import { AboutHero } from "../components/heroes/AboutHero";
+import { InsightsHero } from "../components/heroes/InsightsHero";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
-import { useScrollAdvance } from "../hooks/useScrollAdvance";
 
 export function About() {
   const { firm, team } = useAppData();
-  useScrollAdvance("/insights");
 
   return (
     <>
       <Seo title={strings.about.pageHeading} description={firm.positioning} path="/about" />
 
-      <section className="bg-brand-teal py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading title={strings.about.pageHeading} subtitle={firm.positioning} light />
-        </div>
-      </section>
+      <AboutHero />
 
       <section className="bg-brand-cream py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
@@ -112,6 +109,10 @@ export function About() {
           </div>
         </div>
       </section>
+
+      <NextPageTeaser nextPath="/insights">
+        <InsightsHero />
+      </NextPageTeaser>
     </>
   );
 }
