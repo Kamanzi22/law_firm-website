@@ -2,16 +2,12 @@ import { Link } from "react-router-dom";
 import { Seo } from "../components/seo/Seo";
 import { SectionHeading } from "../components/ui/SectionHeading";
 import { Reveal } from "../components/ui/Reveal";
-import { NextPageTeaser } from "../components/ui/NextPageTeaser";
 import { AboutHero } from "../components/heroes/AboutHero";
-import { InsightsHero } from "../components/heroes/InsightsHero";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
-import { usePrevPageOnScrollUp } from "../hooks/usePrevPageOnScrollUp";
 
 export function About() {
   const { firm, team } = useAppData();
-  usePrevPageOnScrollUp("/services");
 
   return (
     <>
@@ -111,10 +107,6 @@ export function About() {
           </div>
         </div>
       </section>
-
-      <NextPageTeaser nextPath="/insights">
-        <InsightsHero />
-      </NextPageTeaser>
     </>
   );
 }

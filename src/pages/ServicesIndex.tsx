@@ -3,16 +3,12 @@ import { ArrowRight } from "lucide-react";
 import { Seo } from "../components/seo/Seo";
 import { ServiceIcon } from "../components/ui/ServiceIcon";
 import { Reveal } from "../components/ui/Reveal";
-import { NextPageTeaser } from "../components/ui/NextPageTeaser";
 import { ServicesHero } from "../components/heroes/ServicesHero";
-import { AboutHero } from "../components/heroes/AboutHero";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
-import { usePrevPageOnScrollUp } from "../hooks/usePrevPageOnScrollUp";
 
 export function ServicesIndex() {
   const { services } = useAppData();
-  usePrevPageOnScrollUp("/");
 
   return (
     <>
@@ -50,10 +46,6 @@ export function ServicesIndex() {
           </div>
         </div>
       </section>
-
-      <NextPageTeaser nextPath="/about">
-        <AboutHero />
-      </NextPageTeaser>
     </>
   );
 }

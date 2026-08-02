@@ -49,15 +49,6 @@ const routeElements = (
 function AnimatedRoutes() {
   const location = useLocation();
 
-  // NextPageTeaser already played its own scroll-driven fade before calling
-  // navigate() with this flag — skip the click-based crossfade below so the
-  // two transitions don't stack and flash.
-  const skipTransition = Boolean((location.state as { skipTransition?: boolean } | null)?.skipTransition);
-
-  if (skipTransition) {
-    return <Routes location={location}>{routeElements}</Routes>;
-  }
-
   return (
     <AnimatePresence mode="wait" initial={false} onExitComplete={() => window.scrollTo({ top: 0 })}>
       <motion.div

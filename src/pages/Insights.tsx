@@ -1,17 +1,13 @@
 import { Link } from "react-router-dom";
 import { Seo } from "../components/seo/Seo";
 import { Reveal } from "../components/ui/Reveal";
-import { NextPageTeaser } from "../components/ui/NextPageTeaser";
 import { InsightsHero } from "../components/heroes/InsightsHero";
-import { ContactHero } from "../components/heroes/ContactHero";
 import { formatArticleDate } from "../lib/format";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
-import { usePrevPageOnScrollUp } from "../hooks/usePrevPageOnScrollUp";
 
 export function Insights() {
   const { articles: insights, getTeamMemberBySlug } = useAppData();
-  usePrevPageOnScrollUp("/about");
 
   return (
     <>
@@ -51,10 +47,6 @@ export function Insights() {
           </div>
         </div>
       </section>
-
-      <NextPageTeaser nextPath="/contact">
-        <ContactHero />
-      </NextPageTeaser>
     </>
   );
 }
