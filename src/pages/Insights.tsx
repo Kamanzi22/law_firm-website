@@ -7,9 +7,11 @@ import { ContactHero } from "../components/heroes/ContactHero";
 import { formatArticleDate } from "../lib/format";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
+import { usePrevPageOnScrollUp } from "../hooks/usePrevPageOnScrollUp";
 
 export function Insights() {
   const { articles: insights, getTeamMemberBySlug } = useAppData();
+  usePrevPageOnScrollUp("/about");
 
   return (
     <>

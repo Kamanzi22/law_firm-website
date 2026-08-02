@@ -7,6 +7,7 @@ import { strings } from "../data/strings";
 import { isRequired, isValidEmail, isValidPhone } from "../lib/validation";
 import { submitContactMessage } from "../lib/submitContactMessage";
 import { useAppData } from "../lib/DataProvider";
+import { usePrevPageOnScrollUp } from "../hooks/usePrevPageOnScrollUp";
 
 interface ContactFormState {
   name: string;
@@ -22,6 +23,7 @@ const initialState: ContactFormState = { name: "", email: "", phone: "", subject
 
 export function Contact() {
   const { firm } = useAppData();
+  usePrevPageOnScrollUp("/insights");
   const [form, setForm] = useState<ContactFormState>(initialState);
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -8,9 +8,11 @@ import { ServicesHero } from "../components/heroes/ServicesHero";
 import { AboutHero } from "../components/heroes/AboutHero";
 import { strings } from "../data/strings";
 import { useAppData } from "../lib/DataProvider";
+import { usePrevPageOnScrollUp } from "../hooks/usePrevPageOnScrollUp";
 
 export function ServicesIndex() {
   const { services } = useAppData();
+  usePrevPageOnScrollUp("/");
 
   return (
     <>
